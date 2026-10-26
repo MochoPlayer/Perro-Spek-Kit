@@ -30,15 +30,18 @@ La trazabilidad propuesta relaciona las fuentes y el OpsCon con los escenarios, 
 
 ## 1.1 Propósito del documento
 
-[Describir qué decisiones y necesidades recoge este documento, a quién va dirigido y cómo se empleará en las etapas posteriores.]
+> **Borrador para revisión del equipo.**
+
+Este documento recoge el análisis del problema del reto VOICE-BITTLE: contexto, stakeholders, escenarios, necesidades y requisitos del sistema de control por voz del Bittle, con su trazabilidad y el método de verificación previsto. Va dirigido al cliente y al equipo. Servirá de entrada a Spec Kit en el H2 (`spec.md`, `plan.md`, `tasks.md`) y para analizar la solicitud de cambio CR-01.
 
 ## 1.2 Referencias y documentos de entrada
 
 | ID     | Documento / fuente               | Versión / enlace   | Información utilizada                       |
 |--------|----------------------------------|--------------------|---------------------------------------------|
-| REF-01 | Encargo VOICE-BITTLE             | [Referencia]     | [Condiciones y objetivos]                 |
-| REF-02 | OpsCon del proyecto              | [Versión]        | [Contexto y situaciones de uso]           |
-| REF-03 | Documentación técnica consultada | [Fuente y fecha] | [Capacidades y restricciones verificadas] |
+| REF-01 | Encargo VOICE-BITTLE | Presentación «Semana 7 – Bittle» (Moodle) | Objetivo, hitos H1–H4 y criterio mínimo |
+| REF-02 | OpsCon del proyecto | v0.1, entregado el 26/10/2026 (*por referenciar*) | Contexto y situaciones de uso |
+| REF-03 | Documentación técnica de Petoi | Doc Center, Serial Protocol, Python API, Voice Command Module y firmware OpenCat (`InstinctBittle.h`); resumen en `capacidades-bittle.md` | Capacidades, skills disponibles y restricciones |
+| REF-04 | Respuestas del cliente del 26/10/2026 | `referencias/notas/respuestas-cliente-2026-10-26.md` y transcripción de la aclaración | Alcance, activación por nombre, tipos de requisitos e interfaz |
 
 ## 1.3 Términos, siglas y convenciones
 
@@ -49,7 +52,13 @@ La trazabilidad propuesta relaciona las fuentes y el OpsCon con los escenarios, 
 | Escenario operacional    | Descripción de una situación de utilización del sistema, sus condiciones, interacciones y resultados. |
 | Necesidad                | Capacidad, resultado o característica que un stakeholder precisa en el contexto de uso.               |
 | Requisito del sistema    | Enunciado verificable que expresa una obligación o característica exigible al sistema.                |
-| [Añadir]               | [Definir términos propios del proyecto]                                                             |
+| Bittle                   | Robot cuadrúpedo de Petoi (modelo normal, placa NyBoard). |
+| Skill                    | Acción predefinida en el firmware del robot (sentarse, caminar…). |
+| Comando serie            | Texto que se envía al robot para ejecutar una skill (por ejemplo, `ksit`). |
+| Nombre de activación     | Palabra con la que hay que llamar al robot antes de una orden. |
+| Catálogo de órdenes      | Conjunto de órdenes de voz que el sistema acepta. |
+| Entrada no reconocida    | Frase que el sistema no interpreta como una orden válida. |
+| OpsCon                   | Concepto de operaciones del proyecto. |
 
 # 2. Descripción del sistema y contexto operacional
 
