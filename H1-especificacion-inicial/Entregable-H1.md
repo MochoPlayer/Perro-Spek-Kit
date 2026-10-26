@@ -429,22 +429,25 @@ Las tablas de 5.1 a 5.4 recogen los atributos principales de cada requisito. Est
 
 | Escenario | Necesidad | Requisito(s) | Criterio / caso de verificación futuro           |
 |-----------|-----------|--------------|--------------------------------------------------|
-| ESC-01 | Pendiente (§4) | REQ-01 a REQ-11; opcionales REQ-14 a REQ-16 | Cada orden llega como comando al robot simulado y el robot la ejecuta en la demostración. |
-| ESC-02 | Pendiente (§4) | REQ-01 | Ninguna de las 20 frases sin el nombre produce un comando. |
-| ESC-03 | Pendiente (§4) | — (OPEN-05) | Por definir. |
-| ESC-04 | Pendiente (§4) | REQ-12, REQ-23 | Ruido o frase sin sentido: sin movimiento y aviso; el sistema sigue operativo. |
-| ESC-05 | Pendiente (§4) | REQ-13, REQ-23 | Orden fuera del catálogo: sin movimiento y aviso. |
-| ESC-06 | Pendiente (§4) | — (OPEN-05) | Por definir. |
-| ESC-07 | Pendiente (§4) | REQ-25 | Sin conexión: ningún comando y aviso mostrado. |
-| ESC-08, ESC-09, ESC-10 | Pendiente (§4) | REQ-28 (solo parcial) | Escenarios aún por definir (apartado 3). |
-| Transversales (todos) | Pendiente (§4) | REQ-17 a REQ-22, REQ-24, REQ-26, REQ-27 | Ver verificación en 5.1 a 5.4. |
+| ESC-01 | NEC-01, NEC-04, NEC-07 | REQ-01 a REQ-11, REQ-21, REQ-22; opcionales REQ-14 a REQ-16 | Cada orden llega como comando al robot simulado y el robot la ejecuta en la demostración; tiempo y aciertos dentro de los límites. |
+| ESC-02 | NEC-02 | REQ-01 | Ninguna de las 20 frases sin el nombre produce un comando. |
+| ESC-03 | — | — (OPEN-05) | Por definir. |
+| ESC-04 | NEC-03 | REQ-12, REQ-19, REQ-23 | Ruido o frase sin sentido: sin movimiento y aviso visible; el sistema sigue operativo. |
+| ESC-05 | NEC-05 | REQ-13, REQ-19, REQ-23 | Orden fuera del catálogo: sin movimiento y aviso visible. |
+| ESC-06 | NEC-09 | — (OPEN-05) | Por definir. |
+| ESC-07 | NEC-06 | REQ-19, REQ-25 | Sin conexión: ningún comando y aviso mostrado. |
+| ESC-08, ESC-09, ESC-10 | — | REQ-28 (solo parcial) | Escenarios aún por definir (apartado 3). |
+| H3 (pruebas sin robot) | NEC-08 | REQ-26 | El conjunto de pruebas se ejecuta completo sin robot conectado. |
+| Transversales | NEC-01 | REQ-17, REQ-18, REQ-20, REQ-27 | Ver verificación en 5.1 a 5.4. |
+| Cliente 26/10 (7) | — | REQ-24 | Inspección: sin ficheros de audio. |
 
 ## 6.2 Comprobación de cobertura
 
 Estado actual (borrador):
 
-- Las necesidades (apartado 4) aún no están redactadas, por lo que la columna *Necesidad* queda pendiente.
+- Necesidades sin requisito: NEC-09 (depende de ESC-06, OPEN-05).
 - Escenarios sin requisito: ESC-03 y ESC-06 (comportamiento por definir, OPEN-05); ESC-08, ESC-09 y ESC-10 (escenarios por definir).
+- Requisitos sin necesidad asociada: REQ-24 (privacidad), que viene de lo que dijo el cliente (punto 7), y REQ-28, que viene de la documentación de Petoi. Falta decidir si se crea una necesidad para cada uno.
 - Todos los requisitos tienen origen y método de verificación previsto.
 
 ## 6.3 Enfoque inicial de verificación
