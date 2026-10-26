@@ -4,6 +4,7 @@ Respuestas recogidas tal cual, sin interpretar.
 
 1. Limitaciones del gato: el cliente sabe los comandos que puede recoonocer el gato
 2. Orden de comandos, como los voy a dar: 1 orden solo, esperas a que termina antes de hacerlo (lo hace el cliente)
+   - **Ajuste posterior del cliente (26/10):** se pueden concatenar órdenes.
 3. Voz interpreta todo: para llamarlo hay que decir el "nombre" del perro
 4. Tiempo respuesta: minimo posible
 5. Ordenes: 40 programadas, mas lo que añadamos (es positivo)

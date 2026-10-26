@@ -77,9 +77,10 @@ Este documento recoge el análisis del problema del reto VOICE-BITTLE: contexto,
 - El procesamiento de la voz.
 - El envío de comandos al robot.
 - La ejecución de skills que el robot ya tiene.
+- Órdenes encadenadas en una misma frase, ejecutadas en orden (ajuste del cliente, 26/10).
 
 **Fuera del alcance:**
-- Órdenes combinadas e interrupciones (el usuario da una orden cada vez y espera a que termine; cliente 26/10, punto 2).
+- Interrupciones (cancelar una acción en curso).
 - Navegación autónoma o seguir a personas.
 - Requisitos de dominio (cliente 26/10, punto 7).
 
@@ -97,7 +98,7 @@ Este documento recoge el análisis del problema del reto VOICE-BITTLE: contexto,
 
 | ID     | Condición, capacidad o restricción | Procedencia | Estado de conocimiento |
 |--------|------------------------------------|-------------|------------------------|
-| CTX-01 | Se da una orden cada vez y el usuario espera a que termine antes de dar otra. | Cliente 26/10, punto 2 | Documentado |
+| CTX-01 | El usuario da una orden o varias encadenadas en una misma frase; cada orden empieza cuando termina la anterior. | Cliente 26/10, punto 2 (ajustado por el cliente) | Documentado |
 | CTX-02 | Para dar una orden hay que llamar al robot por su nombre. | Cliente 26/10, punto 3 | Documentado |
 | CTX-03 | El robot es un Bittle normal (NyBoard), sin módulo de voz. | Equipo | Comprobado |
 | CTX-04 | La conexión con el robot es por Bluetooth o USB. Falta confirmar que tenemos el adaptador Bluetooth. | `capacidades-bittle.md` | Pendiente |
@@ -132,7 +133,7 @@ Registrar los hallazgos que condicionan lo que puede especificarse: capacidades 
 
 Reproducir una ficha por cada situación relevante, incluida la operación nominal, alternativas, errores de entrada, fallos de interacción y condiciones excepcionales que procedan. Los escenarios describen situaciones de uso, no tareas de programación.
 
-**Fuera de alcance:** órdenes combinadas e interrupciones. El cliente da una orden cada vez y espera a que termine (cliente 26/10, punto 2).
+**Fuera de alcance:** interrupciones (cancelar una acción en curso).
 
 | ID     | Tipo        | Escenario                                   |
 |--------|-------------|---------------------------------------------|
@@ -146,6 +147,7 @@ Reproducir una ficha por cada situación relevante, incluida la operación nomin
 | ESC-08 | Excepcional | Batería baja                                |
 | ESC-09 | Excepcional | Manipulación del robot durante una acción   |
 | ESC-10 | Excepcional | Robot roto o con fallo mecánico             |
+| ESC-11 | Alternativo | Órdenes encadenadas                         |
 
 ### ESC-01 · Orden simple reconocida
 
@@ -159,7 +161,7 @@ Reproducir una ficha por cada situación relevante, incluida la operación nomin
 | Disparador (trigger)              | El usuario dice el nombre del perro seguido de una orden del catálogo. |
 | Secuencia de interacción          | 1. El usuario dice «[nombre] + orden». 2. El sistema reconoce la orden. 3. El sistema envía la orden al robot. 4. El robot ejecuta la acción. 5. El usuario espera a que termine antes de dar otra orden. |
 | Resultado / estado final esperado | El robot ha ejecutado la acción pedida y el sistema queda listo para la siguiente orden. |
-| Variantes y fallos relacionados   | ESC-02, ESC-04, ESC-05, ESC-06, ESC-07. |
+| Variantes y fallos relacionados   | ESC-02, ESC-04, ESC-05, ESC-06, ESC-07, ESC-11. |
 | Fuente y cuestiones abiertas      | Cliente 26/10, puntos 2, 3 y 4. *Por definir:* nombre del perro; tiempo de respuesta («mínimo posible», hay que fijar un valor). |
 
 ### ESC-02 · Orden sin el nombre del perro
@@ -297,6 +299,21 @@ Reproducir una ficha por cada situación relevante, incluida la operación nomin
 | Variantes y fallos relacionados   | ESC-08, ESC-09. |
 | Fuente y cuestiones abiertas      | Notas del equipo. *Por definir:* si es detectable por el sistema; si no, pasa al apartado 7. |
 
+### ESC-11 · Órdenes encadenadas
+
+| Campo                             | Contenido |
+|-----------------------------------|-----------|
+| Identificador                     | ESC-11 |
+| Nombre y tipo                     | Órdenes encadenadas · Alternativo |
+| Objetivo operacional              | Que el robot ejecute varias órdenes seguidas dadas en una misma frase. |
+| Actores y sistemas externos       | Usuario (STK-02), ordenador con la interfaz, robot Bittle. |
+| Precondiciones / estado inicial   | Robot encendido y conectado; sistema escuchando; robot sin ninguna acción en curso. |
+| Disparador (trigger)              | El usuario dice el nombre del perro seguido de varias órdenes del catálogo (por ejemplo, «[nombre], camina y siéntate»). |
+| Secuencia de interacción          | 1. El usuario dice «[nombre] + orden 1 + orden 2…». 2. El sistema reconoce las órdenes y su orden. 3. El sistema envía la primera orden al robot. 4. Cuando termina, envía la siguiente, hasta la última. |
+| Resultado / estado final esperado | El robot ha ejecutado todas las órdenes en el orden dicho y el sistema queda listo para la siguiente. |
+| Variantes y fallos relacionados   | ESC-01, ESC-04, ESC-05. |
+| Fuente y cuestiones abiertas      | Ajuste del cliente (26/10). *Por definir:* número máximo de órdenes por frase; palabras de enlace aceptadas («y», «luego»…); qué pasa si una de las órdenes no se reconoce; cómo se sabe que ha terminado una acción (CTX-06). |
+
 ## Ficha reutilizable de escenario
 
 | Campo                             | Contenido                                      |
@@ -331,6 +348,7 @@ Recoger necesidades justificadas por el uso y por las condiciones del problema. 
 | NEC-07 | STK-01 | Disponer de un repertorio de órdenes amplio (las 40 programadas y las que se añadan). | Cliente 26/10, punto 5 | El cliente valora positivamente ampliar las órdenes. Media (el mínimo son 2). |
 | NEC-08 | STK-03 | Poder probar el sistema sin el robot físico. | Diapositiva H3 | H3 exige pruebas reproducibles sin el robot. Alta. |
 | NEC-09 | STK-02 | Que una orden dada con el robot ocupado no provoque un comportamiento inesperado. | ESC-06 | *Por definir* (depende del comportamiento de ESC-06). |
+| NEC-10 | STK-01, STK-02 | Dar varias órdenes seguidas en una misma frase y que el robot las ejecute en orden. | ESC-11; ajuste del cliente (26/10) | Lo ha pedido el cliente como ajuste. Prioridad *por definir*. |
 
 ## 4.2 Revisión de cobertura de necesidades
 
