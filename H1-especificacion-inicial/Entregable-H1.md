@@ -260,14 +260,14 @@ Reproducir una ficha por cada situación relevante, incluida la operación nomin
 |-----------------------------------|-----------|
 | Identificador                     | ESC-08 |
 | Nombre y tipo                     | Batería baja · Excepcional |
-| Objetivo operacional              | Entrar en modo reposo cuando tenga poca batería y avisar al usuario de que debe cargarlo. |
+| Objetivo operacional              | Avisar al usuario de que debe cargar el robot. |
 | Actores y sistemas externos       | Robot, ordenador, usuario. |
 | Precondiciones / estado inicial   | La batería del robot está baja. |
-| Disparador (trigger)              | La batería del robot llega al 10 %. |
-| Secuencia de interacción          | 1. La batería llega al 10 %. 2. El robot emite un sonido. 3. El robot entra en modo reposo. |
-| Resultado / estado final esperado | El robot está en reposo y el usuario sabe que debe cargarlo. |
+| Disparador (trigger)              | La tensión de la batería baja del umbral que vigila el firmware del robot. |
+| Secuencia de interacción          | 1. El robot detecta la batería baja. 2. El robot envía el aviso al ordenador por el puerto serie. 3. El ordenador muestra el aviso al usuario. |
+| Resultado / estado final esperado | El usuario sabe que debe cargar el robot. |
 | Variantes y fallos relacionados   | — |
-| Fuente y cuestiones abiertas      | Notas del equipo; ajuste del equipo (26/10). |
+| Fuente y cuestiones abiertas      | Notas del equipo; ajuste del equipo (26/10). El firmware envía el mensaje «Low power: X V» cuando la batería baja del umbral (REF-03, `reaction.h`). |
 
 ### ESC-09 · Manipulación del robot durante una acción
 
@@ -334,7 +334,7 @@ Recoger necesidades justificadas por el uso y por las condiciones del problema. 
 | NEC-08 | STK-03 | Poder probar el sistema sin el robot físico. | Diapositiva H3 | H3 exige pruebas reproducibles sin el robot. Alta. |
 | NEC-09 | STK-02 | Que una orden dada con el robot ocupado no altere la acción en curso. | ESC-06 | El sistema no hace caso a la orden nueva y el robot sigue con lo que hacía. Prioridad *por definir*. |
 | NEC-10 | STK-01, STK-02 | Dar varias órdenes seguidas en una misma frase y que el robot las ejecute en orden. | ESC-10; ajuste del cliente (26/10) | Lo ha pedido el cliente como ajuste. Prioridad *por definir*. |
-| NEC-11 | STK-02 | Saber cuándo hay que cargar el robot. | ESC-08 | Con poca batería el robot avisa con un sonido y entra en reposo. Prioridad *por definir*. |
+| NEC-11 | STK-02 | Saber cuándo hay que cargar el robot. | ESC-08 | Con poca batería el robot avisa al ordenador y este al usuario. Prioridad *por definir*. |
 | NEC-12 | STK-01, STK-02 | Que el robot no sufra daños si alguien lo manipula. | ESC-09 | Ante la manipulación el robot hace una parada de emergencia. Prioridad *por definir*. |
 
 ## 4.2 Revisión de cobertura de necesidades
