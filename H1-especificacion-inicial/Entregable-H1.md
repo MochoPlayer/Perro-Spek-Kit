@@ -325,19 +325,38 @@ Recoger necesidades justificadas por el uso y por las condiciones del problema. 
 | ID     | Stakeholder(s) | Necesidad expresada | Origen / escenario | Justificación / prioridad |
 |--------|----------------|---------------------|--------------------|---------------------------|
 | NEC-01 | STK-01, STK-02 | Dar órdenes al robot por voz y que las ejecute. | ESC-01; encargo | Es el objetivo del encargo. Alta. |
-| NEC-02 | STK-02 | Activar al robot llamándolo por su nombre, para que no reaccione a conversaciones ajenas. | ESC-02; cliente 26/10, punto 3 | La voz lo interpreta todo; sin activación respondería a cualquier frase. Alta. |
+| NEC-02 | STK-02, STK-04 | Activar al robot llamándolo por su nombre, para que no reaccione a conversaciones ajenas. | ESC-02; cliente 26/10, punto 3 | La voz lo interpreta todo; sin activación respondería a cualquier frase. Alta. |
 | NEC-03 | STK-02 | Saber cuándo una orden no se ha entendido, para poder repetirla. | ESC-04; cliente 26/10, punto 8 | La entrada no reconocida es parte del mínimo exigido en H1. Alta. |
 | NEC-04 | STK-02 | Que el robot responda a la orden en el menor tiempo posible. | ESC-01; cliente 26/10, punto 4 | El cliente pide el mínimo posible y considera inaceptable una respuesta de 10 s. Alta. |
 | NEC-05 | STK-02 | Saber que una orden imposible no se va a ejecutar. | ESC-05; cliente 26/10, punto 1 | Evita que el usuario espere una acción que el robot no puede hacer. Media. |
 | NEC-06 | STK-02 | Saber si el robot está conectado antes de dar órdenes. | ESC-07 | Sin conexión ninguna orden llega al robot. Media. |
 | NEC-07 | STK-01 | Disponer de un repertorio de órdenes amplio (las 40 programadas y las que se añadan). | Cliente 26/10, punto 5 | El cliente valora positivamente ampliar las órdenes. Media (el mínimo son 2). |
 | NEC-08 | STK-03 | Poder probar el sistema sin el robot físico. | Diapositiva H3 | H3 exige pruebas reproducibles sin el robot. Alta. |
-| NEC-09 | STK-02 | Que una orden dada con el robot ocupado no provoque un comportamiento inesperado. | ESC-06 | *Por definir* (depende del comportamiento de ESC-06). |
+| NEC-09 | STK-02 | Que una orden dada con el robot ocupado no altere la acción en curso. | ESC-06 | El sistema no hace caso a la orden nueva y el robot sigue con lo que hacía. Prioridad *por definir*. |
 | NEC-10 | STK-01, STK-02 | Dar varias órdenes seguidas en una misma frase y que el robot las ejecute en orden. | ESC-11; ajuste del cliente (26/10) | Lo ha pedido el cliente como ajuste. Prioridad *por definir*. |
+| NEC-11 | STK-02 | Saber cuándo hay que cargar el robot. | ESC-08 | Con poca batería el robot avisa con un sonido y entra en reposo. Prioridad *por definir*. |
+| NEC-12 | STK-01, STK-02 | Que el robot no sufra daños si alguien lo manipula. | ESC-09 | Ante la manipulación el robot hace una parada de emergencia. Prioridad *por definir*. |
 
 ## 4.2 Revisión de cobertura de necesidades
 
-[Explicar qué situaciones, actores o riesgos han quedado cubiertos y cuáles siguen abiertos; justificar las exclusiones y la prioridad atribuida a necesidades relevantes.]
+> **Borrador para revisión del equipo.**
+
+**Cubierto:**
+- Escenarios con necesidad asociada: ESC-01, ESC-02, ESC-04, ESC-05, ESC-06, ESC-07, ESC-08, ESC-09 y ESC-11.
+- Los cuatro stakeholders (STK-01 a STK-04) tienen al menos una necesidad.
+
+**Abierto:**
+- ESC-03 (tiempo sin órdenes) no tiene necesidad asociada. El equipo debe indicar a qué necesidad responde.
+- Las prioridades de NEC-09 a NEC-12 están *por definir*.
+
+**Exclusiones:**
+- Interrupciones (cancelar una acción en curso): fuera de alcance (apartado 2.1).
+- Requisitos de dominio: no aplican en estas entregas (cliente 26/10, punto 7).
+- El fallo mecánico del robot no se trata como escenario; pasa directamente a requisito (REQ-30) por decisión del equipo.
+
+**Criterio de prioridad:**
+- *Alta*: lo exige el criterio mínimo del H1 (NEC-01, NEC-02, NEC-03), lo pide el cliente de forma explícita (NEC-04) o lo exige el H3 (NEC-08).
+- *Media*: mejora el uso pero no forma parte del mínimo (NEC-05, NEC-06, NEC-07).
 
 # 5. Requisitos del sistema
 
