@@ -31,7 +31,6 @@ H2, H3 y H4 solo tienen su `README.md` por ahora. Cada `README.md` de hito trae 
 | Archivo | Para qué sirve |
 |---|---|
 | `Entregable-H1.md` | **Documento principal de H1** (el que se entrega, ~50 KB). Sigue la plantilla de la asignatura. |
-| `entregables/1…5-*.md` | Una ficha por apartado (investigación, escenarios, necesidades, requisitos, trazabilidad): qué se espera de cada uno. Son guías cortas, no el contenido. |
 | `entregables/PLANTILLA_H1_….docx` | Plantilla oficial opcional en Word. |
 | `capacidades-bittle.md` | Investigación técnica del robot: vías de control, skills, articulaciones, tokens, secuencias. |
 | `comandos-bittle-estandar-seguros.md` | Catálogo de los 45 comandos seguros del Bittle estándar. |
