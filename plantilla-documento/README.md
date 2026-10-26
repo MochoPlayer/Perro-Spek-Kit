@@ -4,6 +4,8 @@ Convierte un documento en Markdown en un PDF con la identidad corporativa del ma
 (`../identidad-corporativa/`): portada azul de página completa, cabecera con logo y línea verde,
 Poppins 10,5 pt, títulos azules, tablas con cabecera azul y llamadas en menta.
 
+> Agentes: sigue `INSTRUCCIONES-AGENTE.md`, que lo explica paso a paso.
+
 ## Uso
 
 1. Instala [Typst](https://typst.app) (0.14 o superior). La primera compilación descarga el paquete `cmarker`.
