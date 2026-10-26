@@ -147,7 +147,7 @@ Reproducir una ficha por cada situación relevante, incluida la operación nomin
 | ESC-07 | Excepcional | Robot desconectado                          |
 | ESC-08 | Excepcional | Batería baja                                |
 | ESC-09 | Excepcional | Manipulación del robot durante una acción   |
-| ESC-11 | Alternativo | Órdenes encadenadas                         |
+| ESC-10 | Alternativo | Órdenes encadenadas                         |
 
 ### ESC-01 · Orden simple reconocida
 
@@ -161,7 +161,7 @@ Reproducir una ficha por cada situación relevante, incluida la operación nomin
 | Disparador (trigger)              | El usuario dice el nombre del perro seguido de una orden del catálogo. |
 | Secuencia de interacción          | 1. El usuario dice «[nombre] + orden». 2. El sistema reconoce la orden. 3. El sistema envía la orden al robot. 4. El robot ejecuta la acción. 5. El usuario espera a que termine antes de dar otra orden. |
 | Resultado / estado final esperado | El robot ha ejecutado la acción pedida y el sistema queda listo para la siguiente orden. |
-| Variantes y fallos relacionados   | ESC-02, ESC-04, ESC-05, ESC-06, ESC-07, ESC-11. |
+| Variantes y fallos relacionados   | ESC-02, ESC-04, ESC-05, ESC-06, ESC-07, ESC-10. |
 | Fuente y cuestiones abiertas      | Cliente 26/10, puntos 2, 3 y 4. *Por definir:* nombre del perro; tiempo de respuesta («mínimo posible», hay que fijar un valor). |
 
 ### ESC-02 · Orden sin el nombre del perro
@@ -284,11 +284,11 @@ Reproducir una ficha por cada situación relevante, incluida la operación nomin
 | Variantes y fallos relacionados   | — |
 | Fuente y cuestiones abiertas      | Notas del equipo; ajuste del equipo (26/10). El Bittle tiene las skills `lifted` y `dropped` (ver `capacidades-bittle.md`). |
 
-### ESC-11 · Órdenes encadenadas
+### ESC-10 · Órdenes encadenadas
 
 | Campo                             | Contenido |
 |-----------------------------------|-----------|
-| Identificador                     | ESC-11 |
+| Identificador                     | ESC-10 |
 | Nombre y tipo                     | Órdenes encadenadas · Alternativo |
 | Objetivo operacional              | Que el robot ejecute varias órdenes seguidas dadas en una misma frase. |
 | Actores y sistemas externos       | Usuario (STK-02), ordenador con la interfaz, robot Bittle. |
@@ -333,7 +333,7 @@ Recoger necesidades justificadas por el uso y por las condiciones del problema. 
 | NEC-07 | STK-01 | Disponer de un repertorio de órdenes amplio (las 40 programadas y las que se añadan). | Cliente 26/10, punto 5 | El cliente valora positivamente ampliar las órdenes. Media (el mínimo son 2). |
 | NEC-08 | STK-03 | Poder probar el sistema sin el robot físico. | Diapositiva H3 | H3 exige pruebas reproducibles sin el robot. Alta. |
 | NEC-09 | STK-02 | Que una orden dada con el robot ocupado no altere la acción en curso. | ESC-06 | El sistema no hace caso a la orden nueva y el robot sigue con lo que hacía. Prioridad *por definir*. |
-| NEC-10 | STK-01, STK-02 | Dar varias órdenes seguidas en una misma frase y que el robot las ejecute en orden. | ESC-11; ajuste del cliente (26/10) | Lo ha pedido el cliente como ajuste. Prioridad *por definir*. |
+| NEC-10 | STK-01, STK-02 | Dar varias órdenes seguidas en una misma frase y que el robot las ejecute en orden. | ESC-10; ajuste del cliente (26/10) | Lo ha pedido el cliente como ajuste. Prioridad *por definir*. |
 | NEC-11 | STK-02 | Saber cuándo hay que cargar el robot. | ESC-08 | Con poca batería el robot avisa con un sonido y entra en reposo. Prioridad *por definir*. |
 | NEC-12 | STK-01, STK-02 | Que el robot no sufra daños si alguien lo manipula. | ESC-09 | Ante la manipulación el robot hace una parada de emergencia. Prioridad *por definir*. |
 
@@ -342,7 +342,7 @@ Recoger necesidades justificadas por el uso y por las condiciones del problema. 
 > **Borrador para revisión del equipo.**
 
 **Cubierto:**
-- Escenarios con necesidad asociada: ESC-01, ESC-02, ESC-04, ESC-05, ESC-06, ESC-07, ESC-08, ESC-09 y ESC-11.
+- Escenarios con necesidad asociada: ESC-01, ESC-02, ESC-04, ESC-05, ESC-06, ESC-07, ESC-08, ESC-09 y ESC-10.
 - Los cuatro stakeholders (STK-01 a STK-04) tienen al menos una necesidad.
 
 **Abierto:**
@@ -408,7 +408,7 @@ Cada una cuenta como una sola orden para el usuario, aunque el sistema envíe va
 
 | ID | Enunciado | Origen | Verificación prevista | Prioridad |
 |----|-----------|--------|-----------------------|-----------|
-| REQ-29 | Ante una frase «[NOMBRE], orden 1 y orden 2…» con varias órdenes del catálogo, el sistema deberá enviar al robot los comandos de cada orden en el orden dicho, y deberá enviar cada uno solo cuando haya terminado la acción anterior. | ESC-11; NEC-10; ajuste del cliente (26/10) | Prueba sin robot: frases con 2 y con 3 órdenes → el robot simulado recibe los comandos en el orden dicho. Demostración: el robot ejecuta las acciones seguidas y en orden. *Por definir:* número máximo de órdenes, palabras de enlace aceptadas, qué pasa si una orden no se reconoce y cómo se detecta el fin de cada acción (CTX-06). | *Por definir* |
+| REQ-29 | Ante una frase «[NOMBRE], orden 1 y orden 2…» con varias órdenes del catálogo, el sistema deberá enviar al robot los comandos de cada orden en el orden dicho, y deberá enviar cada uno solo cuando haya terminado la acción anterior. | ESC-10; NEC-10; ajuste del cliente (26/10) | Prueba sin robot: frases con 2 y con 3 órdenes → el robot simulado recibe los comandos en el orden dicho. Demostración: el robot ejecuta las acciones seguidas y en orden. *Por definir:* número máximo de órdenes, palabras de enlace aceptadas, qué pasa si una orden no se reconoce y cómo se detecta el fin de cada acción (CTX-06). | *Por definir* |
 
 ## 5.2 Requisitos de interfaces
 
@@ -487,7 +487,7 @@ Las tablas de 5.1 a 5.4 recogen los atributos principales de cada requisito. Est
 | REQ-26 | Operación | Ejecución con robot simulado | STK-03, H3 | Prueba |
 | REQ-27 | Operación | Funciona en el ordenador del equipo | Cliente (9) | Demostración |
 | REQ-28 | Seguridad | Ensayos sobre superficie lisa y con vigilancia | REF-03, ESC-09 | Inspección del procedimiento |
-| REQ-29 | Funcional | Órdenes encadenadas: comandos en el orden dicho, cada uno al terminar el anterior | ESC-11, NEC-10 | Prueba sin robot + demostración |
+| REQ-29 | Funcional | Órdenes encadenadas: comandos en el orden dicho, cada uno al terminar el anterior | ESC-10, NEC-10 | Prueba sin robot + demostración |
 | REQ-30 | Seguridad | Fallo mecánico: el robot no se mueve | Notas del equipo | Por definir |
 
 # 6. Trazabilidad y estrategia inicial de verificación
@@ -503,7 +503,7 @@ Las tablas de 5.1 a 5.4 recogen los atributos principales de cada requisito. Est
 | ESC-05 | NEC-05 | REQ-13, REQ-19, REQ-23 | Orden fuera del catálogo: sin movimiento y aviso visible. |
 | ESC-06 | NEC-09 | — | Comportamiento definido (ignora la orden nueva); falta requisito. |
 | ESC-07 | NEC-06 | REQ-19, REQ-25 | Sin conexión: ningún comando y aviso mostrado. |
-| ESC-11 | NEC-10 | REQ-29 | Frases con varias órdenes: los comandos llegan al robot simulado en el orden dicho. |
+| ESC-10 | NEC-10 | REQ-29 | Frases con varias órdenes: los comandos llegan al robot simulado en el orden dicho. |
 | Fallo mecánico (sin escenario) | — | REQ-30 | Por definir. |
 | ESC-08 | NEC-11 | — | Falta requisito. |
 | ESC-09 | NEC-12 | REQ-28 (solo parcial) | Falta requisito de la parada de emergencia. |
