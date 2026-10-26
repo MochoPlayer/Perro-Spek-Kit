@@ -498,14 +498,15 @@ Las tablas de 5.1 a 5.4 recogen los atributos principales de cada requisito. Est
 |-----------|-----------|--------------|--------------------------------------------------|
 | ESC-01 | NEC-01, NEC-04, NEC-07 | REQ-01 a REQ-11, REQ-21, REQ-22; opcionales REQ-14 a REQ-16 | Cada orden llega como comando al robot simulado y el robot la ejecuta en la demostración; tiempo y aciertos dentro de los límites. |
 | ESC-02 | NEC-02 | REQ-01 | Ninguna de las 20 frases sin el nombre produce un comando. |
-| ESC-03 | — | — (OPEN-05) | Por definir. |
+| ESC-03 | — | — | Comportamiento definido (reposo a los 15 min); faltan necesidad y requisito. |
 | ESC-04 | NEC-03 | REQ-12, REQ-19, REQ-23 | Ruido o frase sin sentido: sin movimiento y aviso visible; el sistema sigue operativo. |
 | ESC-05 | NEC-05 | REQ-13, REQ-19, REQ-23 | Orden fuera del catálogo: sin movimiento y aviso visible. |
-| ESC-06 | NEC-09 | — (OPEN-05) | Por definir. |
+| ESC-06 | NEC-09 | — | Comportamiento definido (ignora la orden nueva); falta requisito. |
 | ESC-07 | NEC-06 | REQ-19, REQ-25 | Sin conexión: ningún comando y aviso mostrado. |
 | ESC-11 | NEC-10 | REQ-29 | Frases con varias órdenes: los comandos llegan al robot simulado en el orden dicho. |
 | Fallo mecánico (sin escenario) | — | REQ-30 | Por definir. |
-| ESC-08, ESC-09 | — | REQ-28 (solo parcial) | Escenarios aún por definir (apartado 3). |
+| ESC-08 | NEC-11 | — | Falta requisito. |
+| ESC-09 | NEC-12 | REQ-28 (solo parcial) | Falta requisito de la parada de emergencia. |
 | H3 (pruebas sin robot) | NEC-08 | REQ-26 | El conjunto de pruebas se ejecuta completo sin robot conectado. |
 | Transversales | NEC-01 | REQ-17, REQ-18, REQ-20, REQ-27 | Ver verificación en 5.1 a 5.4. |
 | Cliente 26/10 (7) | — | REQ-24 | Inspección: sin ficheros de audio. |
@@ -514,8 +515,8 @@ Las tablas de 5.1 a 5.4 recogen los atributos principales de cada requisito. Est
 
 Estado actual (borrador):
 
-- Necesidades sin requisito: NEC-09 (depende de ESC-06, OPEN-05).
-- Escenarios sin requisito: ESC-03 y ESC-06 (comportamiento por definir, OPEN-05); ESC-08 y ESC-09 (escenarios por definir).
+- Necesidades sin requisito: NEC-09, NEC-11 y NEC-12.
+- Escenarios sin requisito: ESC-03, ESC-06, ESC-08 y ESC-09 (ya definidos en el apartado 3; faltan sus requisitos).
 - Requisitos sin necesidad asociada: REQ-24 (privacidad), que viene de lo que dijo el cliente (punto 7), y REQ-28, que viene de la documentación de Petoi. Falta decidir si se crea una necesidad para cada uno.
 - Todos los requisitos tienen origen y método de verificación previsto.
 
@@ -531,7 +532,7 @@ Estado actual (borrador):
 | OPEN-02 | Valores numéricos provisionales de REQ-15, REQ-16, REQ-21 y REQ-22 | Cambian los criterios de aceptación | Medir con un prototipo y ajustar (el cliente lo permite) | Equipo / abierto |
 | OPEN-03 | Los comandos `khi`, `ktrF` y el pitido `b` no están confirmados en nuestro robot | REQ-09, REQ-11; aviso sonoro | Probarlos con el robot en la sesión 2 | Equipo / abierto |
 | OPEN-04 | Duración del giro de `kwkL`/`kwkR` y tolerancia aceptable | REQ-15, REQ-16 | Medir con el robot y fijar la duración calibrada | Equipo / abierto |
-| OPEN-05 | Qué hace el sistema si llega una orden con el robot ocupado (ESC-06) y tras un tiempo sin órdenes (ESC-03) | Faltan requisitos para ESC-03 y ESC-06 | Decidir y, si hace falta, preguntar al cliente | Equipo / abierto |
+| OPEN-05 | Qué hace el sistema si llega una orden con el robot ocupado (ESC-06) y tras un tiempo sin órdenes (ESC-03) | Faltan requisitos para ESC-03 y ESC-06 | Comportamiento decidido por el equipo (26/10): ESC-06 ignora la orden nueva; ESC-03 pasa a reposo a los 15 min. Falta redactar los requisitos | Equipo / decidido, requisitos pendientes |
 | OPEN-06 | El módulo de transcripción puede enviar el audio a un servicio externo | Afecta a REQ-24 (privacidad) | Elegir el módulo y comprobar dónde se procesa el audio | Equipo / abierto |
 | OPEN-07 | Conexión con el robot (Bluetooth o USB), modelo y placa | REQ-20 | Comprobar en el robot y, si hace falta, preguntar al cliente | Equipo / abierto |
 | OPEN-08 | Secuencia concreta de «baila» | REQ-14 | Diseñar y probar la secuencia | Equipo / abierto |
