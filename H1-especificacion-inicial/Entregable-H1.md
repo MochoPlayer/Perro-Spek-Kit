@@ -181,7 +181,7 @@ Reproducir una ficha por cada situación relevante, incluida la operación nomin
 | Secuencia de interacción          | 1. El usuario dice «[nombre] + orden». 2. El sistema reconoce la orden. 3. El sistema envía la orden al robot. 4. El robot ejecuta la acción. 5. El usuario espera a que termine antes de dar otra orden. |
 | Resultado / estado final esperado | El robot ha ejecutado la acción pedida y el sistema queda listo para la siguiente orden. |
 | Variantes y fallos relacionados   | ESC-02, ESC-04, ESC-05, ESC-06, ESC-07, ESC-10. |
-| Fuente y cuestiones abiertas      | Cliente 26/10, puntos 2, 3 y 4. *Por definir:* nombre del perro; tiempo de respuesta («mínimo posible», hay que fijar un valor). |
+| Fuente y cuestiones abiertas      | Cliente 26/10, puntos 2, 3 y 4. *Por definir:* nombre del perro. Tiempo de respuesta: objetivo < 1,5 s (CTX-04). |
 
 ### ESC-02 · Orden sin el nombre del perro
 
@@ -316,7 +316,7 @@ Reproducir una ficha por cada situación relevante, incluida la operación nomin
 | Secuencia de interacción          | 1. El usuario dice «[nombre] + orden 1 + orden 2…». 2. El sistema reconoce las órdenes y su orden. 3. El sistema envía la primera orden al robot. 4. Cuando termina, envía la siguiente, hasta la última. |
 | Resultado / estado final esperado | El robot ha ejecutado todas las órdenes en el orden dicho y el sistema queda listo para la siguiente. |
 | Variantes y fallos relacionados   | ESC-01, ESC-04, ESC-05. |
-| Fuente y cuestiones abiertas      | Ajuste del cliente (26/10). *Por definir:* número máximo de órdenes por frase; palabras de enlace aceptadas («y», «luego»…); qué pasa si una de las órdenes no se reconoce; cómo se sabe que ha terminado una acción (CTX-06). |
+| Fuente y cuestiones abiertas      | Ajuste del cliente (26/10). *Por definir:* número máximo de órdenes por frase; palabras de enlace aceptadas («y», «luego»…); qué pasa si una de las órdenes no se reconoce; cómo se sabe que ha terminado una acción (CTX-05). |
 
 ## Ficha reutilizable de escenario
 
@@ -427,7 +427,7 @@ Cada una cuenta como una sola orden para el usuario, aunque el sistema envíe va
 
 | ID | Enunciado | Origen | Verificación prevista | Prioridad |
 |----|-----------|--------|-----------------------|-----------|
-| REQ-29 | Ante una frase «[NOMBRE], orden 1 y orden 2…» con varias órdenes del catálogo, el sistema deberá enviar al robot los comandos de cada orden en el orden dicho, y deberá enviar cada uno solo cuando haya terminado la acción anterior. | ESC-10; NEC-10; ajuste del cliente (26/10) | Prueba sin robot: frases con 2 y con 3 órdenes → el robot simulado recibe los comandos en el orden dicho. Demostración: el robot ejecuta las acciones seguidas y en orden. *Por definir:* número máximo de órdenes, palabras de enlace aceptadas, qué pasa si una orden no se reconoce y cómo se detecta el fin de cada acción (CTX-06). | *Por definir* |
+| REQ-29 | Ante una frase «[NOMBRE], orden 1 y orden 2…» con varias órdenes del catálogo, el sistema deberá enviar al robot los comandos de cada orden en el orden dicho, y deberá enviar cada uno solo cuando haya terminado la acción anterior. | ESC-10; NEC-10; ajuste del cliente (26/10) | Prueba sin robot: frases con 2 y con 3 órdenes → el robot simulado recibe los comandos en el orden dicho. Demostración: el robot ejecuta las acciones seguidas y en orden. *Por definir:* número máximo de órdenes, palabras de enlace aceptadas, qué pasa si una orden no se reconoce y cómo se detecta el fin de cada acción (CTX-05). | *Por definir* |
 
 ## 5.2 Requisitos de interfaces
 
@@ -444,7 +444,7 @@ Los valores numéricos son **provisionales**: el cliente pidió ponerlos «a ojo
 
 | ID | Enunciado | Origen | Verificación prevista | Prioridad |
 |----|-----------|--------|-----------------------|-----------|
-| REQ-21 | El tiempo desde que el usuario termina la frase hasta que el sistema envía el comando al robot deberá ser como máximo de 2 s (valor provisional). | Cliente 26/10 (4: «el mínimo posible»; 10 s no es aceptable) | Prueba sin robot: 20 mediciones, todas ≤ 2 s. | Esencial |
+| REQ-21 | El tiempo desde que el usuario termina la frase hasta que el sistema envía el comando al robot deberá ser inferior a 1,5 s (valor provisional, CTX-04). | Cliente 26/10 (4: «el mínimo posible»; 10 s no es aceptable) | Prueba sin robot: 20 mediciones, todas < 1,5 s. | Esencial |
 | REQ-22 | El sistema deberá reconocer y ejecutar correctamente al menos el 80 % de las órdenes válidas dichas en una sala tranquila (valor provisional). | ESC-01; Cliente 26/10 (7) | Prueba: 20 intentos por cada orden del Nivel 1; contar los aciertos. | Esencial |
 | REQ-23 | Tras 20 entradas seguidas no reconocidas o fuera del catálogo, el sistema deberá seguir en funcionamiento y atender la siguiente orden válida. | ESC-04, ESC-05 | Prueba sin robot: 20 entradas inválidas seguidas y después una orden válida que se ejecuta. | Esencial |
 | REQ-24 | El sistema no deberá guardar grabaciones de audio en el disco una vez transcrita la voz. | Cliente 26/10 (7: privacidad) | Inspección: tras una sesión de prueba no hay ficheros de audio; revisión del código. Ver OPEN-06. | Esencial |
@@ -498,7 +498,7 @@ Las tablas de 5.1 a 5.4 recogen los atributos principales de cada requisito. Est
 | REQ-18 | Interfaz | Transcripción existente e intérprete propio | Aclaración 26/10 | Inspección + prueba |
 | REQ-19 | Interfaz | Interfaz de usuario: texto, orden, estado y avisos | ESC-04, 05, 07 | Demostración |
 | REQ-20 | Interfaz | Comandos del protocolo serie de Petoi | REF-03 | Prueba sin robot + demostración |
-| REQ-21 | Prestación | Comando enviado en ≤ 2 s (provisional) | Cliente (4) | Prueba sin robot (20 mediciones) |
+| REQ-21 | Prestación | Comando enviado en < 1,5 s (provisional) | Cliente (4) | Prueba sin robot (20 mediciones) |
 | REQ-22 | Fiabilidad | ≥ 80 % de órdenes válidas ejecutadas (provisional) | ESC-01 | Prueba (20 intentos por orden) |
 | REQ-23 | Robustez | Sigue operativo tras 20 entradas inválidas | ESC-04, 05 | Prueba sin robot |
 | REQ-24 | Privacidad | No guarda audio en disco | Cliente (7) | Inspección |
