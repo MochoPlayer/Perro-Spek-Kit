@@ -47,6 +47,8 @@ Identificar qué necesitan los stakeholders a partir de los escenarios operacion
 
 - [`capacidades-bittle.md`](capacidades-bittle.md): investigación técnica del robot (punto 1).
 - [`opciones-ordenes-de-voz.md`](opciones-ordenes-de-voz.md): órdenes candidatas en tres tiers.
+- [`plantilla-H1.md`](plantilla-H1.md): plantilla para rellenar el entregable H1.
+- [`preguntas-para-el-cliente.md`](preguntas-para-el-cliente.md): preguntas para el profesor y datos que faltan.
 
 ## Flujo de trabajo
 
