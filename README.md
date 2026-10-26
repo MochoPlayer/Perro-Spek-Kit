@@ -42,10 +42,10 @@ flowchart TB
 
   subgraph S1["1 · H1 — Entender y especificar"]
     direction LR
-    A1["Investigar el Bittle<br/><i>01-investigacion-tecnica.md</i>"]:::eq
-    A2["Investigar comunicación<br/>serie · Bluetooth · Python<br/><i>01-investigacion-tecnica.md</i>"]:::eq
-    A3["Investigar voz<br/><i>01-investigacion-tecnica.md</i>"]:::eq
-    B["Definir órdenes<br/><i>01-investigacion-tecnica.md</i>"]:::eq
+    A1["Investigar el Bittle<br/><i>capacidades-bittle.md</i>"]:::eq
+    A2["Investigar comunicación<br/>serie · Bluetooth · Python<br/><i>capacidades-bittle.md</i>"]:::eq
+    A3["Investigar voz<br/><i>capacidades-bittle.md</i>"]:::eq
+    B["Definir órdenes<br/><i>opciones-ordenes-de-voz.md</i>"]:::eq
     C{"¿Cliente OK?"}:::check
     D["Escenarios<br/><i>02-escenarios.md</i>"]:::eq
     E["Necesidades<br/><i>03-necesidades.md</i>"]:::eq
@@ -135,7 +135,7 @@ flowchart TB
 ## Estructura del repo
 
 ```
-H1-especificacion-inicial/        01-investigacion-tecnica · 02-escenarios · 03-necesidades · 04-requisitos · 05-trazabilidad
+H1-especificacion-inicial/        capacidades-bittle · opciones-ordenes-de-voz · 02-escenarios · 03-necesidades · 04-requisitos · 05-trazabilidad
 H2-especificacion-planificacion/  constitution · spec · arquitectura · plan · tasks · coherencia
 H3-implementacion-pruebas/        casos-de-prueba · src/ · tests/ · revision-codigo
 H4-demostracion-aceptacion/       cr-01-analisis · ensayos-fisicos · evidencias/ · presentación

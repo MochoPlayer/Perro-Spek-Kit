@@ -62,10 +62,10 @@ flowchart TB
 
   subgraph S1["1 · H1 — Entender y especificar"]
     direction LR
-    A1["Investigar el Bittle<br/><i>01-investigacion-tecnica.md</i>"]:::eq
-    A2["Investigar comunicación<br/>serie · Bluetooth · Python<br/><i>01-investigacion-tecnica.md</i>"]:::eq
-    A3["Investigar voz<br/><i>01-investigacion-tecnica.md</i>"]:::eq
-    B["Definir órdenes<br/><i>01-investigacion-tecnica.md</i>"]:::eq
+    A1["Investigar el Bittle<br/><i>capacidades-bittle.md</i>"]:::eq
+    A2["Investigar comunicación<br/>serie · Bluetooth · Python<br/><i>capacidades-bittle.md</i>"]:::eq
+    A3["Investigar voz<br/><i>capacidades-bittle.md</i>"]:::eq
+    B["Definir órdenes<br/><i>opciones-ordenes-de-voz.md</i>"]:::eq
     C{"¿Cliente OK?"}:::check
     D["Escenarios<br/><i>02-escenarios.md</i>"]:::eq
     E["Necesidades<br/><i>03-necesidades.md</i>"]:::eq
@@ -101,12 +101,12 @@ flowchart TB
 ### Pasos
 
 **A la vez:**
-- [ ] Investigar el Bittle: movimientos, conexiones, limitaciones → `01-investigacion-tecnica.md`
-- [ ] Investigar la comunicación: protocolo serie, Bluetooth, API de Python → `01-investigacion-tecnica.md`
-- [ ] Investigar el reconocimiento de voz: alternativas y restricciones → `01-investigacion-tecnica.md`
+- [ ] Investigar el Bittle: movimientos, conexiones, limitaciones → `capacidades-bittle.md`
+- [ ] Investigar la comunicación: protocolo serie, Bluetooth, API de Python → `capacidades-bittle.md`
+- [ ] Investigar el reconocimiento de voz: alternativas y restricciones → `capacidades-bittle.md`
 
 **Después, en orden:**
-- [ ] Definir las órdenes y validarlas con el cliente (Teams). Si no las acepta, se redefinen → `01-investigacion-tecnica.md` (apartado de decisiones)
+- [ ] Definir las órdenes y validarlas con el cliente (Teams). Si no las acepta, se redefinen → `opciones-ordenes-de-voz.md`
 - [ ] Escribir los escenarios nominales y excepcionales → `02-escenarios.md`
 - [ ] Sacar de ellos las necesidades → `03-necesidades.md`
 - [ ] Redactar los requisitos (criterios de la NASA) → `04-requisitos.md`
