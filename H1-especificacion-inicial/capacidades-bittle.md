@@ -66,7 +66,7 @@ Más de 35 acciones predefinidas. Se llama anteponiendo `k` al nombre y quitando
 - Se graban con "Start learning" / "Stop learning". "Clear the learning data" borra todas.
 - Convierte el micrófono en un comando serie por `Serial2`. Las respuestas se definen en `voice.h` (`voice1`…`voice10`).
 - Serie: `XAa`–`XAg` (idioma, tono de respuesta, grabar, borrar).
-- ⚠️ La lista completa de las 40 órdenes está en una imagen y en una hoja enlazada.
+- La lista completa de las 40 órdenes, con su comando, está en [`ordenes-modulo-voz-petoi.md`](ordenes-modulo-voz-petoi.md).
 
 ## 7. API de Python (`robot.py`)
 
