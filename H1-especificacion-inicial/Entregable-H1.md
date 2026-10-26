@@ -8,7 +8,7 @@ title: "VOICE-BITTLE | H1 — Análisis del problema y definición de requisitos
 |----------------------------|-----------------------------------------------------------|
 | Código documental          | H1_v1.0_Atenia_Grupo1 |
 | Proyecto / sistema         | VOICE-BITTLE / Sistema de control por voz del Bittle («Atenio») |
-| Empresa / autores          | Atenia Healthcare Robotics · Equipo IngenAI Robótica · Grupo 1. Autores: [Nombres y responsabilidades] |
+| Empresa / autores          | Atenia Healthcare Robotics · Equipo IngenAI Robótica · Grupo 1 |
 | Versión / estado           | v1.0 / entrega H1 |
 | Fecha                      | 2026-10-26 |
 | Repositorio / revisión Git | https://github.com/MochoPlayer/Perro-Spek-Kit-IngenIA (rama `main`; commit de entrega indicado en Moodle) |
