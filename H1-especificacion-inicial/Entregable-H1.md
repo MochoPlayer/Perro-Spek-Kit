@@ -282,9 +282,19 @@ Recoger necesidades justificadas por el uso y por las condiciones del problema. 
 
 ## 4.1 Registro de necesidades
 
-| ID     | Stakeholder(s) | Necesidad expresada                       | Origen / escenario | Justificación / prioridad                       |
-|--------|----------------|-------------------------------------------|--------------------|-------------------------------------------------|
-| NEC-01 | [STK-…]      | [Necesita disponer de / ser capaz de …] | [ESC-…, REF-…]   | [Por qué es necesaria; criterio de prioridad] |
+> **Borrador para revisión del equipo.**
+
+| ID     | Stakeholder(s) | Necesidad expresada | Origen / escenario | Justificación / prioridad |
+|--------|----------------|---------------------|--------------------|---------------------------|
+| NEC-01 | STK-01, STK-02 | Dar órdenes al robot por voz y que las ejecute. | ESC-01; encargo | Es el objetivo del encargo. Alta. |
+| NEC-02 | STK-02 | Activar al robot llamándolo por su nombre, para que no reaccione a conversaciones ajenas. | ESC-02; cliente 26/10, punto 3 | La voz lo interpreta todo; sin activación respondería a cualquier frase. Alta. |
+| NEC-03 | STK-02 | Saber cuándo una orden no se ha entendido, para poder repetirla. | ESC-04; cliente 26/10, punto 8 | La entrada no reconocida es parte del mínimo exigido en H1. Alta. |
+| NEC-04 | STK-02 | Que el robot responda a la orden en el menor tiempo posible. | ESC-01; cliente 26/10, punto 4 | El cliente pide el mínimo posible y considera inaceptable una respuesta de 10 s. Alta. |
+| NEC-05 | STK-02 | Saber que una orden imposible no se va a ejecutar. | ESC-05; cliente 26/10, punto 1 | Evita que el usuario espere una acción que el robot no puede hacer. Media. |
+| NEC-06 | STK-02 | Saber si el robot está conectado antes de dar órdenes. | ESC-07 | Sin conexión ninguna orden llega al robot. Media. |
+| NEC-07 | STK-01 | Disponer de un repertorio de órdenes amplio (las 40 programadas y las que se añadan). | Cliente 26/10, punto 5 | El cliente valora positivamente ampliar las órdenes. Media (el mínimo son 2). |
+| NEC-08 | STK-03 | Poder probar el sistema sin el robot físico. | Diapositiva H3 | H3 exige pruebas reproducibles sin el robot. Alta. |
+| NEC-09 | STK-02 | Que una orden dada con el robot ocupado no provoque un comportamiento inesperado. | ESC-06 | *Por definir* (depende del comportamiento de ESC-06). |
 
 ## 4.2 Revisión de cobertura de necesidades
 
