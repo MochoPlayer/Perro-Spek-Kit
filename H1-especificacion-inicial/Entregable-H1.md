@@ -204,7 +204,7 @@ Reproducir una ficha por cada situación relevante, incluida la operación nomin
 |-----------------------------------|-----------|
 | Identificador                     | ESC-03 |
 | Nombre y tipo                     | Tiempo sin recibir órdenes · Alternativo |
-| Objetivo operacional              | Definir qué hace el sistema si pasa un tiempo t sin órdenes. |
+| Objetivo operacional              | Ahorrar energía cuando el robot está activo sin recibir órdenes. |
 | Actores y sistemas externos       | Ordenador, robot. |
 | Precondiciones / estado inicial   | Robot conectado y sin acción en curso. |
 | Disparador (trigger)              | Pasan 15 min sin que llegue ninguna orden. |
@@ -355,18 +355,18 @@ Recoger necesidades justificadas por el uso y por las condiciones del problema. 
 | NEC-10 | STK-01, STK-02 | Dar varias órdenes seguidas en una misma frase y que el robot las ejecute en orden. | ESC-10; ajuste del cliente (26/10) | Lo ha pedido el cliente como ajuste. Prioridad *por definir*. |
 | NEC-11 | STK-02 | Saber cuándo hay que cargar el robot. | ESC-08 | Con poca batería el robot avisa al ordenador y este al usuario. Prioridad *por definir*. |
 | NEC-12 | STK-01, STK-02 | Que el robot no sufra daños si alguien lo manipula. | ESC-09 | Ante la manipulación el robot hace una parada de emergencia. Prioridad *por definir*. |
+| NEC-13 | STK-02 | Que el robot no gaste batería mientras está encendido sin recibir órdenes. | ESC-03 | Tras 15 min sin órdenes el robot pasa a reposo para ahorrar energía. Prioridad *por definir*. |
 
 ## 4.2 Revisión de cobertura de necesidades
 
 > **Borrador para revisión del equipo.**
 
 **Cubierto:**
-- Escenarios con necesidad asociada: ESC-01, ESC-02, ESC-04, ESC-05, ESC-06, ESC-07, ESC-08, ESC-09 y ESC-10.
+- Todos los escenarios (ESC-01 a ESC-10) tienen al menos una necesidad asociada.
 - Los cuatro stakeholders (STK-01 a STK-04) tienen al menos una necesidad.
 
 **Abierto:**
-- ESC-03 (tiempo sin órdenes) no tiene necesidad asociada. El equipo debe indicar a qué necesidad responde.
-- Las prioridades de NEC-09 a NEC-12 están *por definir*.
+- Las prioridades de NEC-09 a NEC-13 están *por definir*.
 
 **Exclusiones:**
 - Interrupciones (cancelar una acción en curso): fuera de alcance (apartado 2.1).
@@ -517,7 +517,7 @@ Las tablas de 5.1 a 5.4 recogen los atributos principales de cada requisito. Est
 |-----------|-----------|--------------|--------------------------------------------------|
 | ESC-01 | NEC-01, NEC-04, NEC-07 | REQ-01 a REQ-11, REQ-21, REQ-22; opcionales REQ-14 a REQ-16 | Cada orden llega como comando al robot simulado y el robot la ejecuta en la demostración; tiempo y aciertos dentro de los límites. |
 | ESC-02 | NEC-02 | REQ-01 | Ninguna de las 20 frases sin el nombre produce un comando. |
-| ESC-03 | — | — | Comportamiento definido (reposo a los 15 min); faltan necesidad y requisito. |
+| ESC-03 | NEC-13 | — | Comportamiento definido (reposo a los 15 min); falta requisito. |
 | ESC-04 | NEC-03 | REQ-12, REQ-19, REQ-23 | Ruido o frase sin sentido: sin movimiento y aviso visible; el sistema sigue operativo. |
 | ESC-05 | NEC-05 | REQ-13, REQ-19, REQ-23 | Orden fuera del catálogo: sin movimiento y aviso visible. |
 | ESC-06 | NEC-09 | — | Comportamiento definido (ignora la orden nueva); falta requisito. |
@@ -534,7 +534,7 @@ Las tablas de 5.1 a 5.4 recogen los atributos principales de cada requisito. Est
 
 Estado actual (borrador):
 
-- Necesidades sin requisito: NEC-09, NEC-11 y NEC-12.
+- Necesidades sin requisito: NEC-09, NEC-11, NEC-12 y NEC-13.
 - Escenarios sin requisito: ESC-03, ESC-06, ESC-08 y ESC-09 (ya definidos en el apartado 3; faltan sus requisitos).
 - Requisitos sin necesidad asociada: REQ-24 (privacidad), que viene de lo que dijo el cliente (punto 7), y REQ-28, que viene de la documentación de Petoi. Falta decidir si se crea una necesidad para cada uno.
 - Todos los requisitos tienen origen y método de verificación previsto.
