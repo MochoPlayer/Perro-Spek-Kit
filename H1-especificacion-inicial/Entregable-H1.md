@@ -340,17 +340,18 @@ Recoger necesidades justificadas por el uso y por las condiciones del problema. 
 
 
 **Cubierto:**
+
 - Todos los escenarios (ESC-01 a ESC-10) tienen al menos una necesidad asociada.
 - Los cuatro stakeholders (STK-01 a STK-04) tienen al menos una necesidad.
 
-**Abierto:**
-
 **Exclusiones:**
+
 - Interrupciones (cancelar una acción en curso): fuera de alcance (apartado 2.1), salvo la orden «para» (REQ-07).
 - Requisitos de dominio: no aplican en estas entregas (cliente 26/10, punto 7).
 - El fallo mecánico del robot no se trata como escenario: lo detecta el usuario y lo comunica con la parada de emergencia de la interfaz (REQ-30), por decisión del equipo.
 
 **Criterio de prioridad:**
+
 - *Alta*: lo exige el criterio mínimo del H1 (NEC-01, NEC-02, NEC-03), lo pide el cliente de forma explícita (NEC-04, NEC-10 y NEC-09, que va con ella) o lo exige el H3 (NEC-08).
 - *Media*: mejora el uso pero no forma parte del mínimo (NEC-05, NEC-06, NEC-07, NEC-11, NEC-12, NEC-13).
 
