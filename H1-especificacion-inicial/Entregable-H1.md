@@ -6,9 +6,9 @@ title: "VOICE-BITTLE | H1 — Análisis del problema y definición de requisitos
 
 | Control documental         | Valor                                                     |
 |----------------------------|-----------------------------------------------------------|
-| Código documental          | [Código de la empresa / documento]                      |
+| Código documental          | H1_v1.0_Atenia_Grupo1 |
 | Proyecto / sistema         | VOICE-BITTLE / Sistema de control por voz del Bittle («Atenio») |
-| Empresa / autores          | [Nombres y responsabilidades]                           |
+| Empresa / autores          | Atenia Healthcare Robotics · Equipo IngenAI Robótica · Grupo 1. Autores: [Nombres y responsabilidades] |
 | Versión / estado           | v1.0 / entrega H1 |
 | Fecha                      | 2026-10-26 |
 | Repositorio / revisión Git | https://github.com/MochoPlayer/Perro-Spek-Kit-IngenIA (rama `main`; commit de entrega indicado en Moodle) |
@@ -33,7 +33,7 @@ Este documento recoge el análisis del problema del reto VOICE-BITTLE: contexto,
 | ID     | Documento / fuente               | Versión / enlace   | Información utilizada                       |
 |--------|----------------------------------|--------------------|---------------------------------------------|
 | REF-01 | Encargo VOICE-BITTLE | Presentación «Semana 7 – Bittle» (Moodle) | Objetivo, hitos H1–H4 y criterio mínimo |
-| REF-02 | OpsCon del proyecto | v0.1, entregado el 26/10/2026 (*por referenciar*) | Contexto y situaciones de uso |
+| REF-02 | OpsCon del proyecto | `OpsCon_v0.1_Atenia_Grupo1.docx` (entregado el 2026-10-26) | Contexto y situaciones de uso |
 | REF-03 | Documentación técnica de Petoi | Doc Center, Serial Protocol, Python API, Voice Command Module y firmware OpenCat (`InstinctBittle.h`); resumen en `capacidades-bittle.md` | Capacidades, skills disponibles y restricciones |
 | REF-04 | Respuestas del cliente del 26/10/2026 | `referencias/notas/respuestas-cliente-2026-10-26.md` y transcripción de la aclaración | Alcance, activación por nombre, tipos de requisitos e interfaz |
 
