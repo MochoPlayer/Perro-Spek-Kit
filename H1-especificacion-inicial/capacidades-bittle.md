@@ -82,3 +82,11 @@ Formato de lista de tareas: `[comando, argumentos…, retardo_en_segundos]`, por
 - Sin giroscopio activo no corrige su inclinación ni detecta que está boca abajo.
 - Con dos puertos serie visibles se está usando Bluetooth. ⚠️ Los pasos de emparejamiento están en Moodle.
 - ⚠️ Faltan: velocidad de baudios y formato de respuesta.
+
+
+## 9. Arquitectura de voz
+
+> **En estudio, no decidido.**
+
+- Nuestro robot es el Bittle normal (NyBoard), que no trae el módulo de voz de Petoi.
+- Opción en estudio: el reconocimiento de voz se hace en un portátil, que envía la orden al robot (Bluetooth o USB).
