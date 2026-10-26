@@ -372,7 +372,7 @@ Recoger necesidades justificadas por el uso y por las condiciones del problema. 
 **Exclusiones:**
 - Interrupciones (cancelar una acción en curso): fuera de alcance (apartado 2.1).
 - Requisitos de dominio: no aplican en estas entregas (cliente 26/10, punto 7).
-- El fallo mecánico del robot no se trata como escenario; pasa directamente a requisito (REQ-30) por decisión del equipo.
+- El fallo mecánico del robot no se trata como escenario: lo detecta el usuario y lo comunica con la parada de emergencia de la interfaz (REQ-30), por decisión del equipo.
 
 **Criterio de prioridad:**
 - *Alta*: lo exige el criterio mínimo del H1 (NEC-01, NEC-02, NEC-03), lo pide el cliente de forma explícita (NEC-04) o lo exige el H3 (NEC-08).
@@ -458,7 +458,7 @@ Los valores numéricos son **provisionales**: el cliente pidió ponerlos «a ojo
 | REQ-26 | El sistema deberá poder ejecutarse con un robot simulado que registre los comandos recibidos, para realizar las pruebas sin el robot físico. | STK-03; hito H3 | Prueba: el conjunto de pruebas se ejecuta completo sin robot conectado. | Esencial |
 | REQ-27 | El sistema deberá poder instalarse, ejecutarse y demostrarse en un ordenador del equipo. | Cliente 26/10 (9) | Demostración en el ordenador del equipo. | Esencial |
 | REQ-28 | Los ensayos con el robot físico se harán sobre una superficie lisa y con una persona que vigile para evitar caídas. Es una medida física supervisada, no un comportamiento del software. | REF-03 (Petoi: superficies lisas); ESC-09 | Inspección del procedimiento de ensayo antes de cada sesión con el robot. | Esencial |
-| REQ-30 | Ante un fallo mecánico del robot, el sistema no deberá moverlo, para evitar más daños. | Notas del equipo (antes escenario de robot roto); ajuste del equipo (26/10) | *Por definir* (cómo se detecta el fallo). | *Por definir* |
+| REQ-30 | **Parada de emergencia.** La interfaz deberá ofrecer un botón de parada de emergencia. Al pulsarlo, el sistema deberá poner el robot en modo reposo y no deberá enviarle ningún otro comando hasta que el usuario vuelva a pulsar el mismo botón. | Notas del equipo; ajuste del equipo (26/10): el usuario detecta el fallo y lo comunica por la interfaz | Prueba sin robot: al pulsar el botón, el robot simulado recibe el comando de reposo y no recibe ningún comando ante órdenes posteriores; al volver a pulsarlo, se atienden de nuevo. Demostración con el robot. | *Por definir* |
 
 ## 5.5 Ficha de requisito (duplicar por cada requisito)
 
@@ -508,7 +508,7 @@ Las tablas de 5.1 a 5.4 recogen los atributos principales de cada requisito. Est
 | REQ-27 | Operación | Funciona en el ordenador del equipo | Cliente (9) | Demostración |
 | REQ-28 | Seguridad | Ensayos sobre superficie lisa y con vigilancia | REF-03, ESC-09 | Inspección del procedimiento |
 | REQ-29 | Funcional | Órdenes encadenadas: comandos en el orden dicho, cada uno al terminar el anterior | ESC-10, NEC-10 | Prueba sin robot + demostración |
-| REQ-30 | Seguridad | Fallo mecánico: el robot no se mueve | Notas del equipo | Por definir |
+| REQ-30 | Seguridad | Parada de emergencia: botón en la interfaz, reposo hasta volver a pulsarlo | Notas del equipo | Prueba sin robot + demostración |
 
 # 6. Trazabilidad y estrategia inicial de verificación
 
@@ -524,7 +524,7 @@ Las tablas de 5.1 a 5.4 recogen los atributos principales de cada requisito. Est
 | ESC-06 | NEC-09 | — | Comportamiento definido (ignora la orden nueva); falta requisito. |
 | ESC-07 | NEC-06 | REQ-19, REQ-25 | Sin conexión: ningún comando y aviso mostrado. |
 | ESC-10 | NEC-10 | REQ-29 | Frases con varias órdenes: los comandos llegan al robot simulado en el orden dicho. |
-| Fallo mecánico (sin escenario) | — | REQ-30 | Por definir. |
+| Parada de emergencia (sin escenario) | — | REQ-30 | Al pulsar el botón el robot pasa a reposo y no atiende órdenes hasta volver a pulsarlo. |
 | ESC-08 | NEC-11 | — | Falta requisito. |
 | ESC-09 | NEC-12 | REQ-28 (solo parcial) | Falta requisito de la parada de emergencia. |
 | H3 (pruebas sin robot) | NEC-08 | REQ-26 | El conjunto de pruebas se ejecuta completo sin robot conectado. |
@@ -546,7 +546,7 @@ Estado actual (borrador):
 
 | Nivel | Qué se comprueba | Requisitos |
 |-------|------------------|------------|
-| Solo software (robot simulado, REQ-26) | Activación por nombre, comando que se enviaría por cada orden, avisos ante entradas no válidas, robustez ante entradas inválidas seguidas, tiempo hasta el envío del comando, orden de los comandos encadenados y ausencia de ficheros de audio. | REQ-01 a REQ-13, REQ-21, REQ-23, REQ-24, REQ-25, REQ-29 |
+| Solo software (robot simulado, REQ-26) | Activación por nombre, comando que se enviaría por cada orden, avisos ante entradas no válidas, robustez ante entradas inválidas seguidas, tiempo hasta el envío del comando, orden de los comandos encadenados y ausencia de ficheros de audio. | REQ-01 a REQ-13, REQ-21, REQ-23, REQ-24, REQ-25, REQ-29, REQ-30 |
 | Integración (ordenador, micrófono y enlace con el robot) | Captación de la voz, transcripción e intérprete, interfaz de usuario, formato de los comandos en el puerto serie, tasa de reconocimiento con voz real y funcionamiento en el ordenador del equipo. | REQ-17 a REQ-20, REQ-22, REQ-27 |
 | Robot físico (sesión 2, ensayos supervisados según REQ-28) | Que el robot ejecute cada orden, secuencias opcionales (baila, media vuelta, da una vuelta), desconexión real del robot y comportamiento ante batería baja y manipulación. | REQ-02 a REQ-11 (demostración), REQ-14 a REQ-16, REQ-25, REQ-30; ESC-08, ESC-09 |
 
