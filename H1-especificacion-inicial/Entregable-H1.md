@@ -522,7 +522,13 @@ Estado actual (borrador):
 
 ## 6.3 Enfoque inicial de verificación
 
-[Indicar qué se podrá comprobar solo con software, qué requerirá integración y qué exigirá observar el Bittle físico. No declarar pruebas realizadas si solo se han planificado.]
+> En el H1 no se ha ejecutado ninguna prueba: todo lo de este apartado está planificado.
+
+| Nivel | Qué se comprueba | Requisitos |
+|-------|------------------|------------|
+| Solo software (robot simulado, REQ-26) | Activación por nombre, comando que se enviaría por cada orden, avisos ante entradas no válidas, robustez ante entradas inválidas seguidas, tiempo hasta el envío del comando, orden de los comandos encadenados y ausencia de ficheros de audio. | REQ-01 a REQ-13, REQ-21, REQ-23, REQ-24, REQ-25, REQ-29 |
+| Integración (ordenador, micrófono y enlace con el robot) | Captación de la voz, transcripción e intérprete, interfaz de usuario, formato de los comandos en el puerto serie, tasa de reconocimiento con voz real y funcionamiento en el ordenador del equipo. | REQ-17 a REQ-20, REQ-22, REQ-27 |
+| Robot físico (sesión 2, ensayos supervisados según REQ-28) | Que el robot ejecute cada orden, secuencias opcionales (baila, media vuelta, da una vuelta), desconexión real del robot y comportamiento ante batería baja y manipulación. | REQ-02 a REQ-11 (demostración), REQ-14 a REQ-16, REQ-25, REQ-30; ESC-08, ESC-09 |
 
 # 7. Supuestos, decisiones pendientes y riesgos
 
