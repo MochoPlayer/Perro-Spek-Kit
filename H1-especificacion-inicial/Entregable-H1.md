@@ -360,7 +360,7 @@ Los requisitos se redactan para el nivel del sistema de interés definido en 2.2
 
 ## 5.1 Requisitos funcionales
 
-Alcance: una orden cada vez; el usuario espera a que termine antes de dar otra (Cliente 26/10, punto 2). «[NOMBRE]» es el nombre del perro, aún por definir (OPEN-01). Los requisitos de Nivel 1 son fijos. Los marcados *Opcional* son del Nivel 2 y se abordan si hay tiempo. La lista completa de niveles está en `propuesta-requisitos-funcionales-por-tiers.md`.
+Alcance: una orden o varias encadenadas en una misma frase; cada orden empieza cuando termina la anterior (Cliente 26/10, punto 2, ajustado por el cliente). «[NOMBRE]» es el nombre del perro, aún por definir (OPEN-01). Los requisitos de Nivel 1 son fijos. Los marcados *Opcional* son del Nivel 2 y se abordan si hay tiempo. La lista completa de niveles está en `propuesta-requisitos-funcionales-por-tiers.md`.
 
 **Activación**
 
@@ -399,6 +399,12 @@ Cada una cuenta como una sola orden para el usuario, aunque el sistema envíe va
 | REQ-14 | Ante la orden «[NOMBRE], baila», el sistema deberá hacer que el robot ejecute una secuencia de movimientos fija y predefinida, y deberá terminar en una postura estable. | ESC-01; T2-09; Cliente 26/10 (5: «todo lo que añadáis será valorado») | Prueba sin robot: la lista de comandos enviada coincide con la secuencia definida (OPEN-08). Demostración: la secuencia se completa sin caída. | Opcional |
 | REQ-15 | Ante la orden «[NOMBRE], media vuelta», el sistema deberá hacer que el robot gire a la izquierda hasta quedar orientado en sentido contrario al inicial, con una desviación máxima de ±45° (valor provisional). | ESC-01; T2-01; Cliente 26/10 (5) | Prueba sin robot: comando `kwkL` durante la duración calibrada (OPEN-04). Demostración: 5 intentos con medida de la desviación. | Opcional |
 | REQ-16 | Ante la orden «[NOMBRE], da una vuelta», el sistema deberá hacer que el robot gire a la izquierda hasta completar una vuelta, con una desviación máxima de ±45° (valor provisional). | ESC-01; T2-01; aclaración 26/10 («combinar dos giros a la izquierda») | Prueba sin robot: dos giros seguidos de la duración calibrada (OPEN-04). Demostración: 5 intentos con medida de la desviación. | Opcional |
+
+**Órdenes encadenadas (ajuste del cliente)**
+
+| ID | Enunciado | Origen | Verificación prevista | Prioridad |
+|----|-----------|--------|-----------------------|-----------|
+| REQ-29 | Ante una frase «[NOMBRE], orden 1 y orden 2…» con varias órdenes del catálogo, el sistema deberá enviar al robot los comandos de cada orden en el orden dicho, y deberá enviar cada uno solo cuando haya terminado la acción anterior. | ESC-11; NEC-10; ajuste del cliente (26/10) | Prueba sin robot: frases con 2 y con 3 órdenes → el robot simulado recibe los comandos en el orden dicho. Demostración: el robot ejecuta las acciones seguidas y en orden. *Por definir:* número máximo de órdenes, palabras de enlace aceptadas, qué pasa si una orden no se reconoce y cómo se detecta el fin de cada acción (CTX-06). | *Por definir* |
 
 ## 5.2 Requisitos de interfaces
 
@@ -476,6 +482,7 @@ Las tablas de 5.1 a 5.4 recogen los atributos principales de cada requisito. Est
 | REQ-26 | Operación | Ejecución con robot simulado | STK-03, H3 | Prueba |
 | REQ-27 | Operación | Funciona en el ordenador del equipo | Cliente (9) | Demostración |
 | REQ-28 | Seguridad | Ensayos sobre superficie lisa y con vigilancia | REF-03, ESC-09 | Inspección del procedimiento |
+| REQ-29 | Funcional | Órdenes encadenadas: comandos en el orden dicho, cada uno al terminar el anterior | ESC-11, NEC-10 | Prueba sin robot + demostración |
 
 # 6. Trazabilidad y estrategia inicial de verificación
 
@@ -490,6 +497,7 @@ Las tablas de 5.1 a 5.4 recogen los atributos principales de cada requisito. Est
 | ESC-05 | NEC-05 | REQ-13, REQ-19, REQ-23 | Orden fuera del catálogo: sin movimiento y aviso visible. |
 | ESC-06 | NEC-09 | — (OPEN-05) | Por definir. |
 | ESC-07 | NEC-06 | REQ-19, REQ-25 | Sin conexión: ningún comando y aviso mostrado. |
+| ESC-11 | NEC-10 | REQ-29 | Frases con varias órdenes: los comandos llegan al robot simulado en el orden dicho. |
 | ESC-08, ESC-09, ESC-10 | — | REQ-28 (solo parcial) | Escenarios aún por definir (apartado 3). |
 | H3 (pruebas sin robot) | NEC-08 | REQ-26 | El conjunto de pruebas se ejecuta completo sin robot conectado. |
 | Transversales | NEC-01 | REQ-17, REQ-18, REQ-20, REQ-27 | Ver verificación en 5.1 a 5.4. |
