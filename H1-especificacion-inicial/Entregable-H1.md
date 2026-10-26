@@ -159,10 +159,10 @@ Reproducir una ficha por cada situación relevante, incluida la operación nomin
 | Actores y sistemas externos       | Usuario (STK-02), ordenador con la interfaz, robot Bittle. |
 | Precondiciones / estado inicial   | Robot encendido y conectado; sistema escuchando; robot sin ninguna acción en curso. |
 | Disparador (trigger)              | El usuario dice el nombre del perro seguido de una orden del catálogo. |
-| Secuencia de interacción          | 1. El usuario dice «[nombre] + orden». 2. El sistema reconoce la orden. 3. El sistema envía la orden al robot. 4. El robot ejecuta la acción. 5. El usuario espera a que termine antes de dar otra orden. |
+| Secuencia de interacción          | 1. El usuario dice «Atenio + orden». 2. El sistema reconoce la orden. 3. El sistema envía la orden al robot. 4. El robot ejecuta la acción. 5. El usuario espera a que termine antes de dar otra orden. |
 | Resultado / estado final esperado | El robot ha ejecutado la acción pedida y el sistema queda listo para la siguiente orden. |
 | Variantes y fallos relacionados   | ESC-02, ESC-04, ESC-05, ESC-06, ESC-07, ESC-10. |
-| Fuente y cuestiones abiertas      | Cliente 26/10, puntos 2, 3 y 4. *Por definir:* nombre del perro; tiempo de respuesta («mínimo posible», hay que fijar un valor). |
+| Fuente y cuestiones abiertas      | Cliente 26/10, puntos 2, 3 y 4. *Por definir:* tiempo de respuesta («mínimo posible», hay que fijar un valor). |
 
 ### ESC-02 · Orden sin el nombre del perro
 
@@ -219,7 +219,7 @@ Reproducir una ficha por cada situación relevante, incluida la operación nomin
 | Actores y sistemas externos       | Usuario, ordenador, robot. |
 | Precondiciones / estado inicial   | Sistema escuchando; robot sin acción en curso. |
 | Disparador (trigger)              | El usuario pide algo que el robot no puede hacer (por ejemplo, seguir a alguien o navegar solo). |
-| Secuencia de interacción          | 1. El usuario dice «[nombre] + orden imposible». 2. El sistema detecta que no está en el catálogo. 3. El ordenador avisa al usuario. |
+| Secuencia de interacción          | 1. El usuario dice «Atenio + orden imposible». 2. El sistema detecta que no está en el catálogo. 3. El ordenador avisa al usuario. |
 | Resultado / estado final esperado | El robot no se mueve y el usuario recibe el aviso. |
 | Variantes y fallos relacionados   | ESC-04. |
 | Fuente y cuestiones abiertas      | Notas del equipo («no sigue a nadie ni navega solo»); cliente 26/10, punto 1 (el usuario conoce los comandos). *Por definir:* texto del aviso. |
@@ -293,8 +293,8 @@ Reproducir una ficha por cada situación relevante, incluida la operación nomin
 | Objetivo operacional              | Que el robot ejecute varias órdenes seguidas dadas en una misma frase. |
 | Actores y sistemas externos       | Usuario (STK-02), ordenador con la interfaz, robot Bittle. |
 | Precondiciones / estado inicial   | Robot encendido y conectado; sistema escuchando; robot sin ninguna acción en curso. |
-| Disparador (trigger)              | El usuario dice el nombre del perro seguido de varias órdenes del catálogo (por ejemplo, «[nombre], camina y siéntate»). |
-| Secuencia de interacción          | 1. El usuario dice «[nombre] + orden 1 + orden 2…». 2. El sistema reconoce las órdenes y su orden. 3. El sistema envía la primera orden al robot. 4. Cuando termina, envía la siguiente, hasta la última. |
+| Disparador (trigger)              | El usuario dice el nombre del perro seguido de varias órdenes del catálogo (por ejemplo, «Atenio, camina y siéntate»). |
+| Secuencia de interacción          | 1. El usuario dice «Atenio + orden 1 + orden 2…». 2. El sistema reconoce las órdenes y su orden. 3. El sistema envía la primera orden al robot. 4. Cuando termina, envía la siguiente, hasta la última. |
 | Resultado / estado final esperado | El robot ha ejecutado todas las órdenes en el orden dicho y el sistema queda listo para la siguiente. |
 | Variantes y fallos relacionados   | ESC-01, ESC-04, ESC-05. |
 | Fuente y cuestiones abiertas      | Ajuste del cliente (26/10). *Por definir:* número máximo de órdenes por frase; palabras de enlace aceptadas («y», «luego»…); qué pasa si una de las órdenes no se reconoce; cómo se sabe que ha terminado una acción (CTX-06). |
@@ -364,28 +364,28 @@ Los requisitos se redactan para el nivel del sistema de interés definido en 2.2
 
 ## 5.1 Requisitos funcionales
 
-Alcance: una orden o varias encadenadas en una misma frase; cada orden empieza cuando termina la anterior (Cliente 26/10, punto 2, ajustado por el cliente). «[NOMBRE]» es el nombre del perro, aún por definir (OPEN-01). Los requisitos de Nivel 1 son fijos. Los marcados *Opcional* son del Nivel 2 y se abordan si hay tiempo. La lista completa de niveles está en `propuesta-requisitos-funcionales-por-tiers.md`.
+Alcance: una orden o varias encadenadas en una misma frase; cada orden empieza cuando termina la anterior (Cliente 26/10, punto 2, ajustado por el cliente). «Atenio» es el nombre del perro (OPEN-01: falta comprobar que la transcripción lo reconoce bien). Los requisitos de Nivel 1 son fijos. Los marcados *Opcional* son del Nivel 2 y se abordan si hay tiempo. La lista completa de niveles está en `propuesta-requisitos-funcionales-por-tiers.md`.
 
 **Activación**
 
 | ID | Enunciado | Origen | Verificación prevista | Prioridad |
 |----|-----------|--------|-----------------------|-----------|
-| REQ-01 | El sistema deberá tratar como orden solo una frase que empiece por el nombre del perro «[NOMBRE]» seguido de una orden del catálogo, y deberá ignorar cualquier otra frase sin enviar ningún comando al robot. | ESC-01, ESC-02; Cliente 26/10 (3) | Prueba sin robot: 20 frases con el nombre se procesan como orden; 20 frases sin el nombre no producen ningún comando. | Esencial |
+| REQ-01 | El sistema deberá tratar como orden solo una frase que empiece por el nombre del perro «Atenio» seguido de una orden del catálogo, y deberá ignorar cualquier otra frase sin enviar ningún comando al robot. | ESC-01, ESC-02; Cliente 26/10 (3) | Prueba sin robot: 20 frases con el nombre se procesan como orden; 20 frases sin el nombre no producen ningún comando. | Esencial |
 
 **Órdenes del Nivel 1**
 
 | ID | Enunciado | Origen | Verificación prevista | Prioridad |
 |----|-----------|--------|-----------------------|-----------|
-| REQ-02 | Ante la orden «[NOMBRE], siéntate», el sistema deberá enviar al robot el comando `ksit` (sentarse). | ESC-01; Cliente 26/10 (5); T1-01 | Prueba sin robot: el robot simulado recibe `ksit`. Demostración: el robot termina sentado. | Esencial (Nivel 1) |
-| REQ-03 | Ante la orden «[NOMBRE], levántate», el sistema deberá enviar al robot el comando `kup` (ponerse en pie). | ESC-01; Cliente 26/10 (5); T1-02 | Prueba sin robot: el robot simulado recibe `kup`. Demostración: el robot termina de pie. | Esencial (Nivel 1) |
-| REQ-04 | Ante la orden «[NOMBRE], camina», el sistema deberá enviar al robot el comando `kwkF` (caminar hacia delante). | ESC-01; Cliente 26/10 (5); T1-03 | Prueba sin robot: el robot simulado recibe `kwkF`. Demostración: el robot avanza. | Esencial (Nivel 1) |
-| REQ-05 | Ante la orden «[NOMBRE], izquierda», el sistema deberá enviar al robot el comando `kwkL` (caminar hacia la izquierda). | ESC-01; Cliente 26/10 (5); T1-04 | Prueba sin robot: el robot simulado recibe `kwkL`. Demostración: el robot gira a la izquierda. | Esencial (Nivel 1) |
-| REQ-06 | Ante la orden «[NOMBRE], derecha», el sistema deberá enviar al robot el comando `kwkR` (caminar hacia la derecha). | ESC-01; Cliente 26/10 (5); T1-05 | Prueba sin robot: el robot simulado recibe `kwkR`. Demostración: el robot gira a la derecha. | Esencial (Nivel 1) |
-| REQ-07 | Ante la orden «[NOMBRE], para», el sistema deberá enviar al robot el comando `krest` (detenerse en postura de reposo). | ESC-01; Cliente 26/10 (5); T1-06 | Prueba sin robot: el robot simulado recibe `krest`. Demostración: el robot se detiene. | Esencial (Nivel 1) |
-| REQ-08 | Ante la orden «[NOMBRE], túmbate», el sistema deberá enviar al robot el comando `d` (tumbarse y apagar los motores). | ESC-01; Cliente 26/10 (5); T1-07 | Prueba sin robot: el robot simulado recibe `d`. Demostración: el robot queda tumbado. | Esencial (Nivel 1) |
-| REQ-09 | Ante la orden «[NOMBRE], saluda», el sistema deberá enviar al robot el comando `khi` (saludar). | ESC-01; Cliente 26/10 (5); T1-08 | Prueba sin robot: el robot simulado recibe `khi`. Demostración: el robot hace el gesto de saludo; comando por confirmar (OPEN-03). | Esencial (Nivel 1) |
-| REQ-10 | Ante la orden «[NOMBRE], equilíbrate», el sistema deberá enviar al robot el comando `kbalance` (postura de equilibrio). | ESC-01; Cliente 26/10 (5); T1-09 | Prueba sin robot: el robot simulado recibe `kbalance`. Demostración: el robot queda en equilibrio. | Esencial (Nivel 1) |
-| REQ-11 | Ante la orden «[NOMBRE], trota», el sistema deberá enviar al robot el comando `ktrF` (trotar hacia delante). | ESC-01; Cliente 26/10 (5); T1-10 | Prueba sin robot: el robot simulado recibe `ktrF`. Demostración: el robot trota; comando por confirmar (OPEN-03). | Esencial (Nivel 1) |
+| REQ-02 | Ante la orden «Atenio, siéntate», el sistema deberá enviar al robot el comando `ksit` (sentarse). | ESC-01; Cliente 26/10 (5); T1-01 | Prueba sin robot: el robot simulado recibe `ksit`. Demostración: el robot termina sentado. | Esencial (Nivel 1) |
+| REQ-03 | Ante la orden «Atenio, levántate», el sistema deberá enviar al robot el comando `kup` (ponerse en pie). | ESC-01; Cliente 26/10 (5); T1-02 | Prueba sin robot: el robot simulado recibe `kup`. Demostración: el robot termina de pie. | Esencial (Nivel 1) |
+| REQ-04 | Ante la orden «Atenio, camina», el sistema deberá enviar al robot el comando `kwkF` (caminar hacia delante). | ESC-01; Cliente 26/10 (5); T1-03 | Prueba sin robot: el robot simulado recibe `kwkF`. Demostración: el robot avanza. | Esencial (Nivel 1) |
+| REQ-05 | Ante la orden «Atenio, izquierda», el sistema deberá enviar al robot el comando `kwkL` (caminar hacia la izquierda). | ESC-01; Cliente 26/10 (5); T1-04 | Prueba sin robot: el robot simulado recibe `kwkL`. Demostración: el robot gira a la izquierda. | Esencial (Nivel 1) |
+| REQ-06 | Ante la orden «Atenio, derecha», el sistema deberá enviar al robot el comando `kwkR` (caminar hacia la derecha). | ESC-01; Cliente 26/10 (5); T1-05 | Prueba sin robot: el robot simulado recibe `kwkR`. Demostración: el robot gira a la derecha. | Esencial (Nivel 1) |
+| REQ-07 | Ante la orden «Atenio, para», el sistema deberá enviar al robot el comando `krest` (detenerse en postura de reposo). | ESC-01; Cliente 26/10 (5); T1-06 | Prueba sin robot: el robot simulado recibe `krest`. Demostración: el robot se detiene. | Esencial (Nivel 1) |
+| REQ-08 | Ante la orden «Atenio, túmbate», el sistema deberá enviar al robot el comando `d` (tumbarse y apagar los motores). | ESC-01; Cliente 26/10 (5); T1-07 | Prueba sin robot: el robot simulado recibe `d`. Demostración: el robot queda tumbado. | Esencial (Nivel 1) |
+| REQ-09 | Ante la orden «Atenio, saluda», el sistema deberá enviar al robot el comando `khi` (saludar). | ESC-01; Cliente 26/10 (5); T1-08 | Prueba sin robot: el robot simulado recibe `khi`. Demostración: el robot hace el gesto de saludo; comando por confirmar (OPEN-03). | Esencial (Nivel 1) |
+| REQ-10 | Ante la orden «Atenio, equilíbrate», el sistema deberá enviar al robot el comando `kbalance` (postura de equilibrio). | ESC-01; Cliente 26/10 (5); T1-09 | Prueba sin robot: el robot simulado recibe `kbalance`. Demostración: el robot queda en equilibrio. | Esencial (Nivel 1) |
+| REQ-11 | Ante la orden «Atenio, trota», el sistema deberá enviar al robot el comando `ktrF` (trotar hacia delante). | ESC-01; Cliente 26/10 (5); T1-10 | Prueba sin robot: el robot simulado recibe `ktrF`. Demostración: el robot trota; comando por confirmar (OPEN-03). | Esencial (Nivel 1) |
 
 **Entradas que no son una orden válida**
 
@@ -400,15 +400,15 @@ Cada una cuenta como una sola orden para el usuario, aunque el sistema envíe va
 
 | ID | Enunciado | Origen | Verificación prevista | Prioridad |
 |----|-----------|--------|-----------------------|-----------|
-| REQ-14 | Ante la orden «[NOMBRE], baila», el sistema deberá hacer que el robot ejecute una secuencia de movimientos fija y predefinida, y deberá terminar en una postura estable. | ESC-01; T2-09; Cliente 26/10 (5: «todo lo que añadáis será valorado») | Prueba sin robot: la lista de comandos enviada coincide con la secuencia definida (OPEN-08). Demostración: la secuencia se completa sin caída. | Opcional |
-| REQ-15 | Ante la orden «[NOMBRE], media vuelta», el sistema deberá hacer que el robot gire a la izquierda hasta quedar orientado en sentido contrario al inicial, con una desviación máxima de ±45° (valor provisional). | ESC-01; T2-01; Cliente 26/10 (5) | Prueba sin robot: comando `kwkL` durante la duración calibrada (OPEN-04). Demostración: 5 intentos con medida de la desviación. | Opcional |
-| REQ-16 | Ante la orden «[NOMBRE], da una vuelta», el sistema deberá hacer que el robot gire a la izquierda hasta completar una vuelta, con una desviación máxima de ±45° (valor provisional). | ESC-01; T2-01; aclaración 26/10 («combinar dos giros a la izquierda») | Prueba sin robot: dos giros seguidos de la duración calibrada (OPEN-04). Demostración: 5 intentos con medida de la desviación. | Opcional |
+| REQ-14 | Ante la orden «Atenio, baila», el sistema deberá hacer que el robot ejecute una secuencia de movimientos fija y predefinida, y deberá terminar en una postura estable. | ESC-01; T2-09; Cliente 26/10 (5: «todo lo que añadáis será valorado») | Prueba sin robot: la lista de comandos enviada coincide con la secuencia definida (OPEN-08). Demostración: la secuencia se completa sin caída. | Opcional |
+| REQ-15 | Ante la orden «Atenio, media vuelta», el sistema deberá hacer que el robot gire a la izquierda hasta quedar orientado en sentido contrario al inicial, con una desviación máxima de ±45° (valor provisional). | ESC-01; T2-01; Cliente 26/10 (5) | Prueba sin robot: comando `kwkL` durante la duración calibrada (OPEN-04). Demostración: 5 intentos con medida de la desviación. | Opcional |
+| REQ-16 | Ante la orden «Atenio, da una vuelta», el sistema deberá hacer que el robot gire a la izquierda hasta completar una vuelta, con una desviación máxima de ±45° (valor provisional). | ESC-01; T2-01; aclaración 26/10 («combinar dos giros a la izquierda») | Prueba sin robot: dos giros seguidos de la duración calibrada (OPEN-04). Demostración: 5 intentos con medida de la desviación. | Opcional |
 
 **Órdenes encadenadas (ajuste del cliente)**
 
 | ID | Enunciado | Origen | Verificación prevista | Prioridad |
 |----|-----------|--------|-----------------------|-----------|
-| REQ-29 | Ante una frase «[NOMBRE], orden 1 y orden 2…» con varias órdenes del catálogo, el sistema deberá enviar al robot los comandos de cada orden en el orden dicho, y deberá enviar cada uno solo cuando haya terminado la acción anterior. | ESC-10; NEC-10; ajuste del cliente (26/10) | Prueba sin robot: frases con 2 y con 3 órdenes → el robot simulado recibe los comandos en el orden dicho. Demostración: el robot ejecuta las acciones seguidas y en orden. *Por definir:* número máximo de órdenes, palabras de enlace aceptadas, qué pasa si una orden no se reconoce y cómo se detecta el fin de cada acción (CTX-06). | *Por definir* |
+| REQ-29 | Ante una frase «Atenio, orden 1 y orden 2…» con varias órdenes del catálogo, el sistema deberá enviar al robot los comandos de cada orden en el orden dicho, y deberá enviar cada uno solo cuando haya terminado la acción anterior. | ESC-10; NEC-10; ajuste del cliente (26/10) | Prueba sin robot: frases con 2 y con 3 órdenes → el robot simulado recibe los comandos en el orden dicho. Demostración: el robot ejecuta las acciones seguidas y en orden. *Por definir:* número máximo de órdenes, palabras de enlace aceptadas, qué pasa si una orden no se reconoce y cómo se detecta el fin de cada acción (CTX-06). | *Por definir* |
 
 ## 5.2 Requisitos de interfaces
 
@@ -528,7 +528,7 @@ Estado actual (borrador):
 
 | ID      | Supuesto / cuestión / riesgo  | Impacto            | Acción para resolverlo                     | Responsable / estado |
 |---------|-------------------------------|--------------------|--------------------------------------------|----------------------|
-| OPEN-01 | Nombre del perro (palabra de activación) y cómo se pronuncia | Condiciona REQ-01 y todas las órdenes | Decidir el nombre y comprobarlo con el reconocimiento de voz | Equipo / abierto |
+| OPEN-01 | Nombre del perro: «Atenio» (decidido el 26/10). Falta comprobar que la transcripción lo reconoce bien | Condiciona REQ-01 y todas las órdenes | Probar «Atenio» con el módulo de transcripción elegido | Equipo / nombre decidido, reconocimiento por comprobar |
 | OPEN-02 | Valores numéricos provisionales de REQ-15, REQ-16, REQ-21 y REQ-22 | Cambian los criterios de aceptación | Medir con un prototipo y ajustar (el cliente lo permite) | Equipo / abierto |
 | OPEN-03 | Los comandos `khi`, `ktrF` y el pitido `b` no están confirmados en nuestro robot | REQ-09, REQ-11; aviso sonoro | Probarlos con el robot en la sesión 2 | Equipo / abierto |
 | OPEN-04 | Duración del giro de `kwkL`/`kwkR` y tolerancia aceptable | REQ-15, REQ-16 | Medir con el robot y fijar la duración calibrada | Equipo / abierto |
