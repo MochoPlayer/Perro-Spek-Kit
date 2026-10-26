@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="552 80 80 152" role="img" aria-label="Atenia Healthcare Robotics">
+  <title>Atenia Healthcare Robotics</title>
+  
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  <rect id="base" x="559.3" y="210.3" width="65.8" height="14.7" rx="7.3" fill="#12A39A"/>
+  
+  <rect id="body" x="572.8" y="130.9" width="38.7" height="71.6" rx="10.8" fill="#13294B"/>
+  <g id="cross" fill="#F7F9FB">
+    <rect id="cv" x="588.3" y="148.0" width="7.7" height="24.0" rx="2.3"/>
+    <rect id="ch" x="580.1" y="156.1" width="24.0" height="7.7" rx="2.3"/>
+  </g>
+  <g id="head">
+    <rect x="558.3" y="87.6" width="67.7" height="35.6" rx="17.8" fill="#13294B"/>
+    <circle id="eyeL" cx="578.6" cy="105.4" r="6.4" fill="#12A39A"/>
+    <circle id="eyeR" cx="605.7" cy="105.4" r="6.4" fill="#12A39A"/>
+  </g>
+</svg>
