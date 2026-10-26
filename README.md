@@ -47,10 +47,10 @@ flowchart TB
     A3["Investigar voz<br/><i>capacidades-bittle.md</i>"]:::eq
     B["Definir órdenes<br/><i>opciones-ordenes-de-voz.md</i>"]:::eq
     C{"¿Cliente OK?"}:::check
-    D["Escenarios<br/><i>02-escenarios.md</i>"]:::eq
-    E["Necesidades<br/><i>03-necesidades.md</i>"]:::eq
-    F["Requisitos<br/><i>04-requisitos.md</i>"]:::eq
-    G["Trazabilidad<br/><i>05-trazabilidad.md</i>"]:::eq
+    D["Escenarios<br/><i>Entregable-H1.md §3</i>"]:::eq
+    E["Necesidades<br/><i>Entregable-H1.md §4</i>"]:::eq
+    F["Requisitos<br/><i>Entregable-H1.md §5</i>"]:::eq
+    G["Trazabilidad<br/><i>Entregable-H1.md §6</i>"]:::eq
     H{"¿Cumple<br/>checklist H1?"}:::check
     M1(["Entregar H1<br/>Moodle"]):::hito
     class A1,A2,A3 par
@@ -135,7 +135,7 @@ flowchart TB
 ## Estructura del repo
 
 ```
-H1-especificacion-inicial/        capacidades-bittle · opciones-ordenes-de-voz · 02-escenarios · 03-necesidades · 04-requisitos · 05-trazabilidad
+H1-especificacion-inicial/        Entregable-H1.md (documento principal) · capacidades-bittle · opciones-ordenes-de-voz · entregables/ (Word)
 H2-especificacion-planificacion/  constitution · spec · arquitectura · plan · tasks · coherencia
 H3-implementacion-pruebas/        casos-de-prueba · src/ · tests/ · revision-codigo
 H4-demostracion-aceptacion/       cr-01-analisis · ensayos-fisicos · evidencias/ · presentación

@@ -72,10 +72,10 @@ flowchart TB
     A3["Investigar voz<br/><i>capacidades-bittle.md</i>"]:::eq
     B["Definir órdenes<br/><i>opciones-ordenes-de-voz.md</i>"]:::eq
     C{"¿Cliente OK?"}:::check
-    D["Escenarios<br/><i>02-escenarios.md</i>"]:::eq
-    E["Necesidades<br/><i>03-necesidades.md</i>"]:::eq
-    F["Requisitos<br/><i>04-requisitos.md</i>"]:::eq
-    G["Trazabilidad<br/><i>05-trazabilidad.md</i>"]:::eq
+    D["Escenarios<br/><i>Entregable-H1.md §3</i>"]:::eq
+    E["Necesidades<br/><i>Entregable-H1.md §4</i>"]:::eq
+    F["Requisitos<br/><i>Entregable-H1.md §5</i>"]:::eq
+    G["Trazabilidad<br/><i>Entregable-H1.md §6</i>"]:::eq
     H{"¿Cumple<br/>checklist H1?"}:::check
     M1(["Entregar H1<br/>Moodle"]):::hito
     class A1,A2,A3 par
@@ -112,10 +112,10 @@ flowchart TB
 
 **Después, en orden:**
 - [ ] Definir las órdenes y validarlas con el cliente (Teams). Si no las acepta, se redefinen → `opciones-ordenes-de-voz.md`
-- [ ] Escribir los escenarios nominales y excepcionales → `02-escenarios.md`
-- [ ] Sacar de ellos las necesidades → `03-necesidades.md`
-- [ ] Redactar los requisitos (criterios de la NASA) → `04-requisitos.md`
-- [ ] Montar la trazabilidad y el método de verificación → `05-trazabilidad.md`
+- [ ] Escribir los escenarios nominales y excepcionales → `Entregable-H1.md §3`
+- [ ] Sacar de ellos las necesidades → `Entregable-H1.md §4`
+- [ ] Redactar los requisitos (criterios de la NASA) → `Entregable-H1.md §5`
+- [ ] Montar la trazabilidad y el método de verificación → `Entregable-H1.md §6`
 
 **Antes de entregar:** comprobar la tabla «Contenido esperado». Si falla algo, se vuelve a los requisitos.
 
