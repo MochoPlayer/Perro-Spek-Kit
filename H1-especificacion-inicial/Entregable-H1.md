@@ -79,6 +79,7 @@ El robot cuadrúpedo Petoi Bittle opera de forma predeterminada mediante comando
   - Adquisición de audio y procesamiento de voz en el ordenador host.
   - Detección de palabra de activación («nombre del perro») y mapeo unívoco de órdenes a tokens del protocolo serie Petoi (`ksit`, `kup`, `krest`).
   - Implementación y verificación de al menos **dos órdenes válidas nominales** y el **tratamiento de la entrada no reconocida**.
+  - Órdenes encadenadas en una misma frase, ejecutadas en el orden dicho (ajuste del cliente).
   - Canal de comunicación bidireccional host–robot mediante Bluetooth.
   - Emisión de retroalimentación de estado y avisos de error desde el propio ordenador host.
 
@@ -113,7 +114,7 @@ El **Sistema de Interés (SoI - System of Interest)** está constituido por el s
 | ID | Condición, capacidad o restricción | Procedencia | Estado de conocimiento |
 |---|---|---|---|
 | **CTX-01** | **Arquitectura de cómputo desacoplada:** El procesamiento de voz (STT) y la lógica de decisión residen en el PC portátil del equipo; el Bittle actúa exclusivamente como receptor cinemático. | `capacidades-bittle.md`; Hardware disponible (NyBoard sin módulo de voz) | Comprobado y acordado con el cliente. |
-| **CTX-02** | **Interacción monousuario y por turnos (Turn-taking):** El usuario da una sola orden por ciclo y espera a que el robot complete el movimiento antes de emitir la siguiente. No se contemplan órdenes concurrentes ni interrupciones dinámicas. | Respuestas cliente , punto 2 | Confirmado por el cliente. |
+| **CTX-02** | **Interacción monousuario y por turnos (Turn-taking):** El usuario da una orden, o varias encadenadas en una misma frase, y espera a que el robot complete los movimientos antes de emitir la siguiente. Las órdenes encadenadas se ejecutan en el orden dicho, cada una al terminar la anterior. No se contemplan órdenes concurrentes ni interrupciones dinámicas. | Respuestas cliente, punto 2 (ajustado después por el cliente) | Confirmado por el cliente. |
 | **CTX-03** | **Palabra de activación previa obligatoria (Wake-word):** Toda orden debe ir precedida por el nombre del perro (ej. *Bittle*). Cualquier locución o ruido sin dicha palabra clave se ignora para evitar reacciones espurias. | Respuestas cliente , punto 3 | Confirmado por el cliente. |
 | **CTX-04** | **Latencia acotada (Mínimo tiempo posible):** El retardo entre la finalización de la locución y el envío del comando al robot debe ser mínimo (objetivo orientativo < 1.5 s; el cliente descarta por inaceptables retardos de 10 s). | Transcripción reunión, punto 4 | Confirmado por el cliente; pendiente de ensayo de rendimiento. |
 | **CTX-05** | **Ausencia de telemetría de fin de acción (Open-loop):** El protocolo OpenCat estándar no emite acuse de recibo de finalización de un skill; el software debe calcular o asociar un retardo preventivo (`delay`) antes de procesar un nuevo movimiento. | `capacidades-bittle.md`, sección 8 | Documentado en API; pendiente de confirmación física de respuesta serie. |
