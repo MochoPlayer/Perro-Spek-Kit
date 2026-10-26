@@ -55,21 +55,48 @@ La trazabilidad propuesta relaciona las fuentes y el OpsCon con los escenarios, 
 
 ## 2.1 Problema, objetivos y alcance
 
-[Resumir el problema a resolver y el valor buscado. Precisar qué parte del sistema completo se estudia en este documento y qué queda fuera. Referenciar el OpsCon, sin reescribirlo íntegramente.]
+> **Borrador para revisión del equipo.** *Por referenciar:* OpsCon v0.1 (REF-02).
+
+**Problema:** el robot Petoi Bittle no se puede controlar por voz tal como lo tenemos (Bittle normal, sin módulo de voz).
+
+**Objetivo:** que el Bittle obedezca órdenes de voz de su repertorio.
+
+**Criterio mínimo de aceptación:** dos órdenes válidas y el tratamiento de una entrada no reconocida (diapositiva del reto, H1 y H4).
+
+**Dentro del alcance:**
+- El ordenador con la interfaz de usuario.
+- El procesamiento de la voz.
+- El envío de comandos al robot.
+- La ejecución de skills que el robot ya tiene.
+
+**Fuera del alcance:**
+- Órdenes combinadas e interrupciones (el usuario da una orden cada vez y espera a que termine; cliente 26/10, punto 2).
+- Navegación autónoma o seguir a personas.
+- Requisitos de dominio (cliente 26/10, punto 7).
 
 ## 2.2 Frontera del sistema e interfaces externas
 
-[Identificar los elementos incluidos en el SoI y las entidades externas con las que intercambia información, energía, mandos u otros flujos. Incluir un diagrama de contexto si aporta claridad.]
-
 | Elemento externo | Interacción / interfaz | Dentro o fuera del SoI | Fuente / incertidumbre |
 |------------------|------------------------|------------------------|------------------------|
-| [Elemento]     | [Intercambio]        | [Dentro/Fuera]       | [Referencia]         |
+| Usuario | Da órdenes por voz y recibe avisos del sistema. | Fuera | Cliente 26/10, puntos 2, 3 y 8 |
+| Entorno (ruido, otras personas) | Interfiere en la captación de la voz. | Fuera | Notas del equipo |
+| Ordenador con la interfaz | Capta la voz, la procesa y avisa al usuario. | Dentro | Cliente 26/10, puntos 8 y 9 |
+| Enlace Bluetooth o USB | Lleva los comandos del ordenador al robot. | Interfaz | `capacidades-bittle.md` |
+| Robot Bittle | Recibe comandos y ejecuta skills. | *Por decidir* | — |
 
 ## 2.3 Condiciones de operación y restricciones conocidas
 
-| ID     | Condición, capacidad o restricción       | Procedencia | Estado de conocimiento                   |
-|--------|------------------------------------------|-------------|------------------------------------------|
-| CTX-01 | [Condición relevante del uso previsto] | [Fuente]  | [Documentado / comprobado / pendiente] |
+| ID     | Condición, capacidad o restricción | Procedencia | Estado de conocimiento |
+|--------|------------------------------------|-------------|------------------------|
+| CTX-01 | Se da una orden cada vez y el usuario espera a que termine antes de dar otra. | Cliente 26/10, punto 2 | Documentado |
+| CTX-02 | Para dar una orden hay que llamar al robot por su nombre. | Cliente 26/10, punto 3 | Documentado |
+| CTX-03 | El robot es un Bittle normal (NyBoard), sin módulo de voz. | Equipo | Comprobado |
+| CTX-04 | La conexión con el robot es por Bluetooth o USB. Falta confirmar que tenemos el adaptador Bluetooth. | `capacidades-bittle.md` | Pendiente |
+| CTX-05 | El robot se mueve bien solo sobre superficie lisa. | `capacidades-bittle.md` | Documentado |
+| CTX-06 | El robot no avisa cuando termina una acción. | `capacidades-bittle.md` | Pendiente de comprobar |
+| CTX-07 | La prueba se hace en un ordenador propio, con interfaz web o aplicación. | Cliente 26/10, punto 9 | Documentado |
+| CTX-08 | No hay requisitos de dominio en estas entregas. | Cliente 26/10, punto 7 | Documentado |
+| CTX-09 | Condiciones de ruido durante la demostración. | — | Pendiente |
 
 ## 2.4 Investigación técnica de viabilidad
 
