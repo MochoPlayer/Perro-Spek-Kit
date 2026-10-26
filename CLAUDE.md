@@ -86,6 +86,10 @@ Hechos del cliente que ya están resumidos (no los vuelvas a preguntar):
 - `spec.md` debe recoger todos los escenarios, requisitos, casos excepcionales y criterios de aceptación de H1. Comprueba la cobertura contra la trazabilidad antes de pasar a `plan.md`.
 - Entrega el primer incremento identificado en `tasks.md`.
 
+### Próximo paso: resolver las discrepancias de H2
+
+`spec.md`, `plan.md` y `tasks.md` están escritos, pero H2 no se entrega hasta resolver las 14 discrepancias de `H2-especificacion-planificacion/discrepancias.md`. **Cuando se retome IngenIA, empieza por ese archivo**: lee su sección «Cómo retomar el trabajo», pregunta al equipo las filas sin respuesta y aplica las respuestas. No decidas por el equipo.
+
 ## Convenciones
 
 - Diagramas en Mermaid dentro del Markdown (ver el flujo del `README.md`).
