@@ -48,12 +48,70 @@ Identificar qué necesitan los stakeholders a partir de los escenarios operacion
 - [`capacidades-bittle.md`](capacidades-bittle.md): investigación técnica del robot (punto 1).
 - [`opciones-ordenes-de-voz.md`](opciones-ordenes-de-voz.md): órdenes candidatas en tres tiers.
 
-## Pendiente
+## Flujo de trabajo
 
-- [ ] Elegir las dos órdenes válidas
-- [ ] 1. Investigación técnica
-- [ ] 2. Escenarios operacionales
-- [ ] 3. Necesidades de los stakeholders
-- [ ] 4. Requisitos del sistema
-- [ ] 5. Trazabilidad
-- [ ] Entregar en Moodle
+Cada caja indica en cursiva el documento que produce. Leyenda debajo del diagrama.
+
+```mermaid
+flowchart TB
+  classDef eq fill:#ffffff,stroke:#334155,color:#0f172a
+  classDef ia fill:#ede9fe,stroke:#7c3aed,color:#2e1065
+  classDef check fill:#fef3c7,stroke:#d97706,color:#78350f
+  classDef hito fill:#0f172a,stroke:#0f172a,color:#ffffff
+  classDef par stroke-dasharray:5 4
+
+  subgraph S1["1 · H1 — Entender y especificar"]
+    direction LR
+    A1["Investigar el Bittle<br/><i>01-investigacion-tecnica.md</i>"]:::eq
+    A2["Investigar comunicación<br/>serie · Bluetooth · Python<br/><i>01-investigacion-tecnica.md</i>"]:::eq
+    A3["Investigar voz<br/><i>01-investigacion-tecnica.md</i>"]:::eq
+    B["Definir órdenes<br/><i>01-investigacion-tecnica.md</i>"]:::eq
+    C{"¿Cliente OK?"}:::check
+    D["Escenarios<br/><i>02-escenarios.md</i>"]:::eq
+    E["Necesidades<br/><i>03-necesidades.md</i>"]:::eq
+    F["Requisitos<br/><i>04-requisitos.md</i>"]:::eq
+    G["Trazabilidad<br/><i>05-trazabilidad.md</i>"]:::eq
+    H{"¿Cumple<br/>checklist H1?"}:::check
+    M1(["Entregar H1<br/>Moodle"]):::hito
+    class A1,A2,A3 par
+    A1 & A2 --> B --> C -- sí --> D
+    C -- no --> B
+    A3 --> D
+    D --> E --> F --> G --> H -- sí --> M1
+    H -- no --> F
+  end
+
+  subgraph LEY["Leyenda"]
+    direction LR
+    L1["Tarea del equipo"]:::eq
+    L2["La genera la IA,<br/>el equipo revisa"]:::ia
+    L3{"Control"}:::check
+    L4(["Entrega"]):::hito
+    L5["Borde discontinuo:<br/>en paralelo"]:::eq
+    L6["Paso<br/><i>documento que produce</i>"]:::eq
+    class L5 par
+    L1 ~~~ L2 ~~~ L3 ~~~ L4 ~~~ L5 ~~~ L6
+  end
+
+  style LEY fill:#ffffff,stroke:#cbd5e1,color:#334155
+  style S1 fill:#f8fafc,stroke:#cbd5e1,color:#334155
+  S1 ~~~ LEY
+```
+
+### Pasos
+
+**A la vez:**
+- [ ] Investigar el Bittle: movimientos, conexiones, limitaciones → `01-investigacion-tecnica.md`
+- [ ] Investigar la comunicación: protocolo serie, Bluetooth, API de Python → `01-investigacion-tecnica.md`
+- [ ] Investigar el reconocimiento de voz: alternativas y restricciones → `01-investigacion-tecnica.md`
+
+**Después, en orden:**
+- [ ] Definir las órdenes y validarlas con el cliente (Teams). Si no las acepta, se redefinen → `01-investigacion-tecnica.md` (apartado de decisiones)
+- [ ] Escribir los escenarios nominales y excepcionales → `02-escenarios.md`
+- [ ] Sacar de ellos las necesidades → `03-necesidades.md`
+- [ ] Redactar los requisitos (criterios de la NASA) → `04-requisitos.md`
+- [ ] Montar la trazabilidad y el método de verificación → `05-trazabilidad.md`
+
+**Antes de entregar:** comprobar la tabla «Contenido esperado». Si falla algo, se vuelve a los requisitos.
+
+**Entrega:** Moodle.

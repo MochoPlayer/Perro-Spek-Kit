@@ -44,6 +44,70 @@ Definir cómo se va a construir el sistema, identificar sus componentes principa
 
 **Notas de la sesión (26/10):** definir vosotros la arquitectura (Bluetooth, otro ordenador, módulos de voz y órdenes) y dársela a Spec Kit para que organice el código. No dejar que Spec Kit funcione solo.
 
+## Flujo de trabajo
+
+Cada caja indica en cursiva el documento que produce. Leyenda debajo del diagrama.
+
+```mermaid
+flowchart TB
+  classDef eq fill:#ffffff,stroke:#334155,color:#0f172a
+  classDef ia fill:#ede9fe,stroke:#7c3aed,color:#2e1065
+  classDef check fill:#fef3c7,stroke:#d97706,color:#78350f
+  classDef hito fill:#0f172a,stroke:#0f172a,color:#ffffff
+  classDef par stroke-dasharray:5 4
+
+  subgraph S2["2 · H2 — Spec Kit"]
+    direction LR
+    I["Instalar Spec Kit<br/>(se puede adelantar)"]:::eq
+    I2["Constitución<br/><i>constitution.md</i>"]:::eq
+    J["Generar spec<br/><i>spec.md</i>"]:::ia
+    J2["Clarify +<br/>revisión manual<br/><i>spec.md</i>"]:::eq
+    K{"¿spec completa<br/>vs H1?"}:::check
+    L["Arquitectura<br/>y esquema<br/><i>arquitectura.md</i>"]:::eq
+    N["Plan técnico<br/><i>plan.md</i>"]:::ia
+    O["Tareas<br/>+ 1er incremento<br/><i>tasks.md</i>"]:::ia
+    O2["Analyze<br/><i>coherencia.md</i>"]:::ia
+    P{"¿Coherente?"}:::check
+    M2(["Tag H2<br/>+ enlace al repo"]):::hito
+    class I par
+    I --> I2 --> J --> J2 --> K -- sí --> L --> N --> O --> O2 --> P -- sí --> M2
+    K -- no --> J2
+    P -- no --> J2
+  end
+
+  subgraph LEY["Leyenda"]
+    direction LR
+    L1["Tarea del equipo"]:::eq
+    L2["La genera la IA,<br/>el equipo revisa"]:::ia
+    L3{"Control"}:::check
+    L4(["Entrega"]):::hito
+    L5["Borde discontinuo:<br/>en paralelo"]:::eq
+    L6["Paso<br/><i>documento que produce</i>"]:::eq
+    class L5 par
+    L1 ~~~ L2 ~~~ L3 ~~~ L4 ~~~ L5 ~~~ L6
+  end
+
+  style LEY fill:#ffffff,stroke:#cbd5e1,color:#334155
+  style S2 fill:#f8fafc,stroke:#cbd5e1,color:#334155
+  S2 ~~~ LEY
+```
+
+### Pasos
+
+- [ ] Instalar Spec Kit y elegir el agente (se puede adelantar durante el H1)
+- [ ] Constitución: reglas fijas del proyecto que la IA debe respetar → `constitution.md`
+- [ ] Generar la spec a partir del H1 (`/speckit.specify`) → `spec.md`
+- [ ] Clarify (`/speckit.clarify`) y revisión manual: están todos los requisitos del H1, excepcionales incluidos, y no hay supuestos inventados → `spec.md`
+- [ ] **Control:** ¿la spec está completa frente al H1? Si no, se vuelve a la revisión.
+- [ ] Arquitectura y esquema del sistema (lo hace el equipo, no Spec Kit) → `arquitectura.md`
+- [ ] Plan técnico (`/speckit.plan`) y su revisión → `plan.md`
+- [ ] Tareas y primer incremento (`/speckit.tasks`) → `tasks.md`
+- [ ] Analyze (`/speckit.analyze`): contradicciones, huecos, riesgos y decisiones pendientes → `coherencia.md`
+- [ ] **Control:** ¿hay coherencia H1 → spec → plan → tasks? Si no, se vuelve a la revisión de la spec.
+- [ ] Etiquetar la versión H2 en Git y entregar el enlace al repo
+
+> Todos los documentos del H2 se guardan en esta carpeta. Cómo encajarlo con las rutas que usa Spec Kit se decide al instalarlo.
+
 ## Checklist de revisión
 
 **1. Especificación: `spec.md`**
