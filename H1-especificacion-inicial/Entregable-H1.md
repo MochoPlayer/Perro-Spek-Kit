@@ -306,21 +306,78 @@ Los requisitos se redactan para el nivel del sistema de interés definido en 2.2
 
 ## 5.1 Requisitos funcionales
 
-[Obligaciones relativas a lo que el sistema debe hacer ante entradas, situaciones y estados.]
+Alcance: una orden cada vez; el usuario espera a que termine antes de dar otra (Cliente 26/10, punto 2). «[NOMBRE]» es el nombre del perro, aún por definir (OPEN-01). Los requisitos de Nivel 1 son fijos. Los marcados *Opcional* son del Nivel 2 y se abordan si hay tiempo. La lista completa de niveles está en `propuesta-requisitos-funcionales-por-tiers.md`.
+
+**Activación**
+
+| ID | Enunciado | Origen | Verificación prevista | Prioridad |
+|----|-----------|--------|-----------------------|-----------|
+| REQ-01 | El sistema deberá tratar como orden solo una frase que empiece por el nombre del perro «[NOMBRE]» seguido de una orden del catálogo, y deberá ignorar cualquier otra frase sin enviar ningún comando al robot. | ESC-01, ESC-02; Cliente 26/10 (3) | Prueba sin robot: 20 frases con el nombre se procesan como orden; 20 frases sin el nombre no producen ningún comando. | Esencial |
+
+**Órdenes del Nivel 1**
+
+| ID | Enunciado | Origen | Verificación prevista | Prioridad |
+|----|-----------|--------|-----------------------|-----------|
+| REQ-02 | Ante la orden «[NOMBRE], siéntate», el sistema deberá enviar al robot el comando `ksit` (sentarse). | ESC-01; Cliente 26/10 (5); T1-01 | Prueba sin robot: el robot simulado recibe `ksit`. Demostración: el robot termina sentado. | Esencial (Nivel 1) |
+| REQ-03 | Ante la orden «[NOMBRE], levántate», el sistema deberá enviar al robot el comando `kup` (ponerse en pie). | ESC-01; Cliente 26/10 (5); T1-02 | Prueba sin robot: el robot simulado recibe `kup`. Demostración: el robot termina de pie. | Esencial (Nivel 1) |
+| REQ-04 | Ante la orden «[NOMBRE], camina», el sistema deberá enviar al robot el comando `kwkF` (caminar hacia delante). | ESC-01; Cliente 26/10 (5); T1-03 | Prueba sin robot: el robot simulado recibe `kwkF`. Demostración: el robot avanza. | Esencial (Nivel 1) |
+| REQ-05 | Ante la orden «[NOMBRE], izquierda», el sistema deberá enviar al robot el comando `kwkL` (caminar hacia la izquierda). | ESC-01; Cliente 26/10 (5); T1-04 | Prueba sin robot: el robot simulado recibe `kwkL`. Demostración: el robot gira a la izquierda. | Esencial (Nivel 1) |
+| REQ-06 | Ante la orden «[NOMBRE], derecha», el sistema deberá enviar al robot el comando `kwkR` (caminar hacia la derecha). | ESC-01; Cliente 26/10 (5); T1-05 | Prueba sin robot: el robot simulado recibe `kwkR`. Demostración: el robot gira a la derecha. | Esencial (Nivel 1) |
+| REQ-07 | Ante la orden «[NOMBRE], para», el sistema deberá enviar al robot el comando `krest` (detenerse en postura de reposo). | ESC-01; Cliente 26/10 (5); T1-06 | Prueba sin robot: el robot simulado recibe `krest`. Demostración: el robot se detiene. | Esencial (Nivel 1) |
+| REQ-08 | Ante la orden «[NOMBRE], túmbate», el sistema deberá enviar al robot el comando `d` (tumbarse y apagar los motores). | ESC-01; Cliente 26/10 (5); T1-07 | Prueba sin robot: el robot simulado recibe `d`. Demostración: el robot queda tumbado. | Esencial (Nivel 1) |
+| REQ-09 | Ante la orden «[NOMBRE], saluda», el sistema deberá enviar al robot el comando `khi` (saludar). | ESC-01; Cliente 26/10 (5); T1-08 | Prueba sin robot: el robot simulado recibe `khi`. Demostración: el robot hace el gesto de saludo; comando por confirmar (OPEN-03). | Esencial (Nivel 1) |
+| REQ-10 | Ante la orden «[NOMBRE], equilíbrate», el sistema deberá enviar al robot el comando `kbalance` (postura de equilibrio). | ESC-01; Cliente 26/10 (5); T1-09 | Prueba sin robot: el robot simulado recibe `kbalance`. Demostración: el robot queda en equilibrio. | Esencial (Nivel 1) |
+| REQ-11 | Ante la orden «[NOMBRE], trota», el sistema deberá enviar al robot el comando `ktrF` (trotar hacia delante). | ESC-01; Cliente 26/10 (5); T1-10 | Prueba sin robot: el robot simulado recibe `ktrF`. Demostración: el robot trota; comando por confirmar (OPEN-03). | Esencial (Nivel 1) |
+
+**Entradas que no son una orden válida**
+
+| ID | Enunciado | Origen | Verificación prevista | Prioridad |
+|----|-----------|--------|-----------------------|-----------|
+| REQ-12 | Ante una frase con ruido o sin sentido que no se interprete como una orden, el sistema deberá no enviar ningún comando de movimiento y deberá mostrar el aviso «no se ha entendido bien». | ESC-04; Cliente 26/10 (8); T1-11 | Prueba sin robot: 20 entradas de ruido o sin sentido → ningún comando y aviso mostrado cada vez. | Esencial |
+| REQ-13 | Ante una orden que no está en el catálogo o que el robot no puede hacer (por ejemplo «sígueme»), el sistema deberá no enviar ningún comando y deberá mostrar un aviso de orden no disponible. | ESC-05; Cliente 26/10 (1) | Prueba sin robot: 10 órdenes fuera del catálogo → ningún comando y aviso mostrado cada vez. | Esencial |
+
+**Órdenes opcionales (Nivel 2)**
+
+Cada una cuenta como una sola orden para el usuario, aunque el sistema envíe varios comandos seguidos.
+
+| ID | Enunciado | Origen | Verificación prevista | Prioridad |
+|----|-----------|--------|-----------------------|-----------|
+| REQ-14 | Ante la orden «[NOMBRE], baila», el sistema deberá hacer que el robot ejecute una secuencia de movimientos fija y predefinida, y deberá terminar en una postura estable. | ESC-01; T2-09; Cliente 26/10 (5: «todo lo que añadáis será valorado») | Prueba sin robot: la lista de comandos enviada coincide con la secuencia definida (OPEN-08). Demostración: la secuencia se completa sin caída. | Opcional |
+| REQ-15 | Ante la orden «[NOMBRE], media vuelta», el sistema deberá hacer que el robot gire a la izquierda hasta quedar orientado en sentido contrario al inicial, con una desviación máxima de ±45° (valor provisional). | ESC-01; T2-01; Cliente 26/10 (5) | Prueba sin robot: comando `kwkL` durante la duración calibrada (OPEN-04). Demostración: 5 intentos con medida de la desviación. | Opcional |
+| REQ-16 | Ante la orden «[NOMBRE], da una vuelta», el sistema deberá hacer que el robot gire a la izquierda hasta completar una vuelta, con una desviación máxima de ±45° (valor provisional). | ESC-01; T2-01; aclaración 26/10 («combinar dos giros a la izquierda») | Prueba sin robot: dos giros seguidos de la duración calibrada (OPEN-04). Demostración: 5 intentos con medida de la desviación. | Opcional |
 
 ## 5.2 Requisitos de interfaces
 
-[Interacciones exigidas entre el SoI y operadores, robot, fuentes de voz u otros sistemas.]
+| ID | Enunciado | Origen | Verificación prevista | Prioridad |
+|----|-----------|--------|-----------------------|-----------|
+| REQ-17 | El sistema deberá recibir la voz del usuario desde el micrófono del ordenador del equipo. | Cliente 26/10 (9); ESC-01 | Demostración: una frase dicha ante el micrófono aparece como texto. | Esencial |
+| REQ-18 | El sistema deberá obtener el texto de la voz mediante un módulo de transcripción ya existente, y deberá incluir un intérprete propio que convierta ese texto en una orden del catálogo. | Aclaración 26/10 (la transcripción no se desarrolla; el intérprete sí) | Inspección: el módulo de transcripción es una dependencia externa y el intérprete es código del equipo. Prueba: texto → orden esperada. | Esencial |
+| REQ-19 | El sistema deberá ofrecer una interfaz de usuario (web o aplicación) que muestre el texto reconocido, la orden interpretada, el estado de la conexión con el robot y los avisos. | Cliente 26/10 (8, 9); ESC-04, ESC-05, ESC-07 | Demostración: los cuatro elementos son visibles en una sesión de prueba. | Esencial |
+| REQ-20 | El sistema deberá enviar al robot los comandos en el formato del protocolo serie de Petoi (token y parámetros, por ejemplo `ksit`) a través de un puerto serie (Bluetooth o USB, OPEN-07). | REF-03 (Petoi Serial Protocol, Python API) | Prueba sin robot: el robot simulado recibe la cadena exacta. Demostración: el robot obedece. | Esencial |
 
 ## 5.3 Requisitos de prestaciones y calidad
 
-[Características medibles cuando correspondan: prestaciones, fiabilidad, disponibilidad, usabilidad, etc. No inventar umbrales sin fuente o justificación.]
+Los valores numéricos son **provisionales**: el cliente pidió ponerlos «a ojo» con márgenes amplios y ajustarlos tras los prototipos (Cliente 26/10, aclaración). Ver OPEN-02.
+
+| ID | Enunciado | Origen | Verificación prevista | Prioridad |
+|----|-----------|--------|-----------------------|-----------|
+| REQ-21 | El tiempo desde que el usuario termina la frase hasta que el sistema envía el comando al robot deberá ser como máximo de 2 s (valor provisional). | Cliente 26/10 (4: «el mínimo posible»; 10 s no es aceptable) | Prueba sin robot: 20 mediciones, todas ≤ 2 s. | Esencial |
+| REQ-22 | El sistema deberá reconocer y ejecutar correctamente al menos el 80 % de las órdenes válidas dichas en una sala tranquila (valor provisional). | ESC-01; Cliente 26/10 (7) | Prueba: 20 intentos por cada orden del Nivel 1; contar los aciertos. | Esencial |
+| REQ-23 | Tras 20 entradas seguidas no reconocidas o fuera del catálogo, el sistema deberá seguir en funcionamiento y atender la siguiente orden válida. | ESC-04, ESC-05 | Prueba sin robot: 20 entradas inválidas seguidas y después una orden válida que se ejecuta. | Esencial |
+| REQ-24 | El sistema no deberá guardar grabaciones de audio en el disco una vez transcrita la voz. | Cliente 26/10 (7: privacidad) | Inspección: tras una sesión de prueba no hay ficheros de audio; revisión del código. Ver OPEN-06. | Esencial |
 
 ## 5.4 Requisitos de seguridad y operación
 
-[Condiciones relevantes para una operación segura, gestión de estados, fallos y restricciones. Separar medidas físicas supervisadas de comportamientos de software verificables.]
+| ID | Enunciado | Origen | Verificación prevista | Prioridad |
+|----|-----------|--------|-----------------------|-----------|
+| REQ-25 | Si no hay conexión con el robot, el sistema no deberá enviar ningún comando y deberá mostrar el aviso «robot no conectado». | ESC-07 | Prueba sin robot: puerto cerrado → ningún comando y aviso mostrado. Demostración: desconectar el robot y dar una orden. | Esencial |
+| REQ-26 | El sistema deberá poder ejecutarse con un robot simulado que registre los comandos recibidos, para realizar las pruebas sin el robot físico. | STK-03; hito H3 | Prueba: el conjunto de pruebas se ejecuta completo sin robot conectado. | Esencial |
+| REQ-27 | El sistema deberá poder instalarse, ejecutarse y demostrarse en un ordenador del equipo. | Cliente 26/10 (9) | Demostración en el ordenador del equipo. | Esencial |
+| REQ-28 | Los ensayos con el robot físico se harán sobre una superficie lisa y con una persona que vigile para evitar caídas. Es una medida física supervisada, no un comportamiento del software. | REF-03 (Petoi: superficies lisas); ESC-09 | Inspección del procedimiento de ensayo antes de cada sesión con el robot. | Esencial |
 
 ## 5.5 Ficha de requisito (duplicar por cada requisito)
+
+Las tablas de 5.1 a 5.4 recogen los atributos principales de cada requisito. Esta ficha completa se usa si un requisito necesita más detalle (motivación, supuestos).
 
 | Atributo                                    | Contenido                                                                  |
 |---------------------------------------------|----------------------------------------------------------------------------|
@@ -337,7 +394,34 @@ Los requisitos se redactan para el nivel del sistema de interés definido en 2.2
 
 | ID     | Clase     | Enunciado breve        | Origen (NEC/ESC) | Verificación prevista  |
 |--------|-----------|------------------------|------------------|------------------------|
-| REQ-01 | [Clase] | [Resumen inequívoco] | [NEC-…, ESC-…] | [Método/observación] |
+| REQ-01 | Funcional | Activación por el nombre del perro | ESC-01, ESC-02 | Prueba sin robot (20 + 20 frases) |
+| REQ-02 | Funcional | «siéntate» → `ksit` | ESC-01 | Prueba sin robot + demostración |
+| REQ-03 | Funcional | «levántate» → `kup` | ESC-01 | Prueba sin robot + demostración |
+| REQ-04 | Funcional | «camina» → `kwkF` | ESC-01 | Prueba sin robot + demostración |
+| REQ-05 | Funcional | «izquierda» → `kwkL` | ESC-01 | Prueba sin robot + demostración |
+| REQ-06 | Funcional | «derecha» → `kwkR` | ESC-01 | Prueba sin robot + demostración |
+| REQ-07 | Funcional | «para» → `krest` | ESC-01 | Prueba sin robot + demostración |
+| REQ-08 | Funcional | «túmbate» → `d` | ESC-01 | Prueba sin robot + demostración |
+| REQ-09 | Funcional | «saluda» → `khi` (por confirmar) | ESC-01 | Prueba sin robot + demostración |
+| REQ-10 | Funcional | «equilíbrate» → `kbalance` | ESC-01 | Prueba sin robot + demostración |
+| REQ-11 | Funcional | «trota» → `ktrF` (por confirmar) | ESC-01 | Prueba sin robot + demostración |
+| REQ-12 | Funcional | Ruido o frase sin sentido: sin movimiento y aviso | ESC-04 | Prueba sin robot (20 entradas) |
+| REQ-13 | Funcional | Orden fuera del catálogo: sin movimiento y aviso | ESC-05 | Prueba sin robot (10 órdenes) |
+| REQ-14 | Funcional (opcional) | «baila»: secuencia fija | ESC-01 | Prueba sin robot + demostración |
+| REQ-15 | Funcional (opcional) | «media vuelta»: giro de 180° (±45°) | ESC-01 | Demostración (5 intentos) |
+| REQ-16 | Funcional (opcional) | «da una vuelta»: giro de 360° (±45°) | ESC-01 | Demostración (5 intentos) |
+| REQ-17 | Interfaz | Voz desde el micrófono del ordenador | ESC-01 | Demostración |
+| REQ-18 | Interfaz | Transcripción existente e intérprete propio | Aclaración 26/10 | Inspección + prueba |
+| REQ-19 | Interfaz | Interfaz de usuario: texto, orden, estado y avisos | ESC-04, 05, 07 | Demostración |
+| REQ-20 | Interfaz | Comandos del protocolo serie de Petoi | REF-03 | Prueba sin robot + demostración |
+| REQ-21 | Prestación | Comando enviado en ≤ 2 s (provisional) | Cliente (4) | Prueba sin robot (20 mediciones) |
+| REQ-22 | Fiabilidad | ≥ 80 % de órdenes válidas ejecutadas (provisional) | ESC-01 | Prueba (20 intentos por orden) |
+| REQ-23 | Robustez | Sigue operativo tras 20 entradas inválidas | ESC-04, 05 | Prueba sin robot |
+| REQ-24 | Privacidad | No guarda audio en disco | Cliente (7) | Inspección |
+| REQ-25 | Operación | Robot desconectado: sin comandos y aviso | ESC-07 | Prueba sin robot + demostración |
+| REQ-26 | Operación | Ejecución con robot simulado | STK-03, H3 | Prueba |
+| REQ-27 | Operación | Funciona en el ordenador del equipo | Cliente (9) | Demostración |
+| REQ-28 | Seguridad | Ensayos sobre superficie lisa y con vigilancia | REF-03, ESC-09 | Inspección del procedimiento |
 
 # 6. Trazabilidad y estrategia inicial de verificación
 
@@ -345,11 +429,23 @@ Los requisitos se redactan para el nivel del sistema de interés definido en 2.2
 
 | Escenario | Necesidad | Requisito(s) | Criterio / caso de verificación futuro           |
 |-----------|-----------|--------------|--------------------------------------------------|
-| ESC-01    | NEC-01    | REQ-…        | [Qué resultado permitirá evaluar el requisito] |
+| ESC-01 | Pendiente (§4) | REQ-01 a REQ-11; opcionales REQ-14 a REQ-16 | Cada orden llega como comando al robot simulado y el robot la ejecuta en la demostración. |
+| ESC-02 | Pendiente (§4) | REQ-01 | Ninguna de las 20 frases sin el nombre produce un comando. |
+| ESC-03 | Pendiente (§4) | — (OPEN-05) | Por definir. |
+| ESC-04 | Pendiente (§4) | REQ-12, REQ-23 | Ruido o frase sin sentido: sin movimiento y aviso; el sistema sigue operativo. |
+| ESC-05 | Pendiente (§4) | REQ-13, REQ-23 | Orden fuera del catálogo: sin movimiento y aviso. |
+| ESC-06 | Pendiente (§4) | — (OPEN-05) | Por definir. |
+| ESC-07 | Pendiente (§4) | REQ-25 | Sin conexión: ningún comando y aviso mostrado. |
+| ESC-08, ESC-09, ESC-10 | Pendiente (§4) | REQ-28 (solo parcial) | Escenarios aún por definir (apartado 3). |
+| Transversales (todos) | Pendiente (§4) | REQ-17 a REQ-22, REQ-24, REQ-26, REQ-27 | Ver verificación en 5.1 a 5.4. |
 
 ## 6.2 Comprobación de cobertura
 
-[Identificar escenarios sin necesidades asociadas; necesidades sin requisito derivado; requisitos sin fuente o sin método de verificación plausible. Resolver las omisiones o justificarlas.]
+Estado actual (borrador):
+
+- Las necesidades (apartado 4) aún no están redactadas, por lo que la columna *Necesidad* queda pendiente.
+- Escenarios sin requisito: ESC-03 y ESC-06 (comportamiento por definir, OPEN-05); ESC-08, ESC-09 y ESC-10 (escenarios por definir).
+- Todos los requisitos tienen origen y método de verificación previsto.
 
 ## 6.3 Enfoque inicial de verificación
 
@@ -359,7 +455,15 @@ Los requisitos se redactan para el nivel del sistema de interés definido en 2.2
 
 | ID      | Supuesto / cuestión / riesgo  | Impacto            | Acción para resolverlo                     | Responsable / estado |
 |---------|-------------------------------|--------------------|--------------------------------------------|----------------------|
-| OPEN-01 | [Información no confirmada] | [Qué condiciona] | [Consulta, inspección o ensayo previsto] | [Quién / estado]   |
+| OPEN-01 | Nombre del perro (palabra de activación) y cómo se pronuncia | Condiciona REQ-01 y todas las órdenes | Decidir el nombre y comprobarlo con el reconocimiento de voz | Equipo / abierto |
+| OPEN-02 | Valores numéricos provisionales de REQ-15, REQ-16, REQ-21 y REQ-22 | Cambian los criterios de aceptación | Medir con un prototipo y ajustar (el cliente lo permite) | Equipo / abierto |
+| OPEN-03 | Los comandos `khi`, `ktrF` y el pitido `b` no están confirmados en nuestro robot | REQ-09, REQ-11; aviso sonoro | Probarlos con el robot en la sesión 2 | Equipo / abierto |
+| OPEN-04 | Duración del giro de `kwkL`/`kwkR` y tolerancia aceptable | REQ-15, REQ-16 | Medir con el robot y fijar la duración calibrada | Equipo / abierto |
+| OPEN-05 | Qué hace el sistema si llega una orden con el robot ocupado (ESC-06) y tras un tiempo sin órdenes (ESC-03) | Faltan requisitos para ESC-03 y ESC-06 | Decidir y, si hace falta, preguntar al cliente | Equipo / abierto |
+| OPEN-06 | El módulo de transcripción puede enviar el audio a un servicio externo | Afecta a REQ-24 (privacidad) | Elegir el módulo y comprobar dónde se procesa el audio | Equipo / abierto |
+| OPEN-07 | Conexión con el robot (Bluetooth o USB), modelo y placa | REQ-20 | Comprobar en el robot y, si hace falta, preguntar al cliente | Equipo / abierto |
+| OPEN-08 | Secuencia concreta de «baila» | REQ-14 | Diseñar y probar la secuencia | Equipo / abierto |
+| OPEN-09 | El aviso al usuario, ¿solo en pantalla o también hablado? | REQ-12, REQ-13, REQ-25 | Decidir; el cliente admite que lo diga el ordenador (punto 8) | Equipo / abierto |
 
 # 8. Revisión y estado de H1
 
