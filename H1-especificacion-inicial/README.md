@@ -46,6 +46,7 @@ Identificar qué necesitan los stakeholders a partir de los escenarios operacion
 ## Documentos de trabajo
 
 - [`capacidades-bittle.md`](capacidades-bittle.md): investigación técnica del robot (punto 1).
+- [`comandos-bittle-estandar-seguros.md`](comandos-bittle-estandar-seguros.md): los 45 comandos seguros del Bittle estándar (catálogo del sistema).
 - [`ordenes-modulo-voz-petoi.md`](ordenes-modulo-voz-petoi.md): las 40 órdenes oficiales del módulo de voz de Petoi, con su comando.
 - [`opciones-ordenes-de-voz.md`](opciones-ordenes-de-voz.md): órdenes candidatas en tres tiers.
 - [`propuesta-requisitos-funcionales-por-tiers.md`](propuesta-requisitos-funcionales-por-tiers.md): versión limpia de los tres niveles, para enseñar al cliente.

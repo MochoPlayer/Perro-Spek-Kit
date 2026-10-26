@@ -4,6 +4,8 @@ Lista oficial de las órdenes fijas del [módulo de voz de Petoi](https://docs.p
 
 > **Cómo leerla.** *Frase en inglés* es lo que entiende el módulo de Petoi. Nuestro sistema hará lo mismo en español: reconocer la frase y enviar al robot el *comando* de la tercera columna. El cliente dijo que hay "40 programadas, más lo que añadáis" (respuestas del cliente, punto 5). Las acciones con riesgo de caída están marcadas con ⚠️.
 
+> **Aviso.** Nuestro robot es el Bittle estándar, no el X. Tres de estas órdenes (`kclup`, `klpov`, `kx`) y la forma `kvtLX` no existen en su biblioteca de skills. El catálogo que usaremos está en [`comandos-bittle-estandar-seguros.md`](comandos-bittle-estandar-seguros.md).
+
 ## Las 40 órdenes
 
 | Nº | Frase (inglés) | Significado | Comando | Respuesta sonora del módulo |
