@@ -114,7 +114,7 @@ El **Sistema de Interés (SoI - System of Interest)** está constituido por el s
 | ID | Condición, capacidad o restricción | Procedencia | Estado de conocimiento |
 |---|---|---|---|
 | **CTX-01** | **Arquitectura de cómputo desacoplada:** El procesamiento de voz (STT) y la lógica de decisión residen en el PC portátil del equipo; el Bittle actúa exclusivamente como receptor cinemático. | `capacidades-bittle.md`; Hardware disponible (NyBoard sin módulo de voz) | Comprobado y acordado con el cliente. |
-| **CTX-02** | **Interacción monousuario y por turnos (Turn-taking):** El usuario da una orden, o varias encadenadas en una misma frase, y espera a que el robot complete los movimientos antes de emitir la siguiente. Las órdenes encadenadas se ejecutan en el orden dicho, cada una al terminar la anterior. No se contemplan órdenes concurrentes ni interrupciones dinámicas. | Respuestas cliente, punto 2 (ajustado después por el cliente) | Confirmado por el cliente. |
+| **CTX-02** | **Interacción monousuario con cola de acciones:** El usuario da una orden, o varias encadenadas en una misma frase, sin tener que esperar a que el robot termine. Las órdenes que llegan con el robot ocupado se guardan en una cola y se ejecutan en el orden dado, cada una al terminar la anterior. No se contemplan órdenes concurrentes ni interrupciones dinámicas. | Respuestas cliente, punto 2 (ajustado después por el cliente) | Confirmado por el cliente. |
 | **CTX-03** | **Palabra de activación previa obligatoria (Wake-word):** Toda orden debe ir precedida por el nombre del perro (*Atenio*). Cualquier locución o ruido sin dicha palabra clave se ignora para evitar reacciones espurias. | Respuestas cliente , punto 3 | Confirmado por el cliente. |
 | **CTX-04** | **Latencia acotada (Mínimo tiempo posible):** El retardo entre la finalización de la locución y el envío del comando al robot debe ser mínimo (objetivo orientativo < 1.5 s; el cliente descarta por inaceptables retardos de 10 s). | Transcripción reunión, punto 4 | Confirmado por el cliente; pendiente de ensayo de rendimiento. |
 | **CTX-05** | **Ausencia de telemetría de fin de acción (Open-loop):** El protocolo OpenCat estándar no emite acuse de recibo de finalización de un skill; el software debe calcular o asociar un retardo preventivo (`delay`) antes de procesar un nuevo movimiento. | `capacidades-bittle.md`, sección 8 | Documentado en API; pendiente de confirmación física de respuesta serie. |
@@ -179,7 +179,7 @@ Reproducir una ficha por cada situación relevante, incluida la operación nomin
 | Actores y sistemas externos       | Usuario (STK-02), ordenador con la interfaz, robot Bittle. |
 | Precondiciones / estado inicial   | Robot encendido y conectado; sistema escuchando; robot sin ninguna acción en curso. |
 | Disparador (trigger)              | El usuario dice el nombre del perro seguido de una orden del catálogo. |
-| Secuencia de interacción          | 1. El usuario dice «Atenio + orden». 2. El sistema reconoce la orden. 3. El sistema envía la orden al robot. 4. El robot ejecuta la acción. 5. El usuario espera a que termine antes de dar otra orden. |
+| Secuencia de interacción          | 1. El usuario dice «Atenio + orden». 2. El sistema reconoce la orden. 3. El sistema envía la orden al robot. 4. El robot ejecuta la acción. |
 | Resultado / estado final esperado | El robot ha ejecutado la acción pedida y el sistema queda listo para la siguiente orden. |
 | Variantes y fallos relacionados   | ESC-02, ESC-04, ESC-05, ESC-06, ESC-07, ESC-10. |
 | Fuente y cuestiones abiertas      | Cliente 26/10, puntos 2, 3 y 4. Tiempo de respuesta: objetivo < 1,5 s (CTX-04). |
@@ -257,7 +257,7 @@ Reproducir una ficha por cada situación relevante, incluida la operación nomin
 | Secuencia de interacción          | 1. El robot está ejecutando una acción. 2. El usuario da otra orden. 3. El sistema la guarda en una cola de acciones. 4. Cuando el robot termina, el sistema envía la siguiente orden de la cola. |
 | Resultado / estado final esperado | El robot ejecuta todas las órdenes en el orden en que se dieron. |
 | Variantes y fallos relacionados   | ESC-01, ESC-10. |
-| Fuente y cuestiones abiertas      | Notas del equipo; ajuste del equipo (26/10). *Por definir:* si la parada de emergencia (REQ-30) vacía la cola. |
+| Fuente y cuestiones abiertas      | Notas del equipo; ajuste del equipo (26/10). La parada de emergencia vacía la cola (REQ-30). |
 
 ### ESC-07 · Robot desconectado
 
@@ -428,7 +428,7 @@ Cada una cuenta como una sola orden para el usuario, aunque el sistema envíe va
 | ID | Enunciado | Origen | Verificación prevista | Prioridad |
 |----|-----------|--------|-----------------------|-----------|
 | REQ-29 | Ante una frase «Atenio, orden 1 y orden 2…» con varias órdenes del catálogo, el sistema deberá enviar al robot los comandos de cada orden en el orden dicho, y deberá enviar cada uno solo cuando haya terminado la acción anterior. | ESC-10; NEC-10; ajuste del cliente (26/10) | Prueba sin robot: frases con 2 y con 3 órdenes → el robot simulado recibe los comandos en el orden dicho. Demostración: el robot ejecuta las acciones seguidas y en orden. *Por definir:* número máximo de órdenes, palabras de enlace aceptadas, qué pasa si una orden no se reconoce y cómo se detecta el fin de cada acción (CTX-05). | Esencial (mínimo del cliente) |
-| REQ-32 | Si llega una orden mientras el robot ejecuta otra, el sistema deberá guardarla en una cola de acciones y enviarla al robot cuando termine la acción en curso, respetando el orden de llegada. | ESC-06; NEC-09 | Prueba sin robot: tres órdenes dadas con el robot simulado ocupado → recibe los comandos en el orden dado, cada uno al terminar el anterior. *Por definir:* si la parada de emergencia vacía la cola. | Esencial |
+| REQ-32 | Si llega una orden mientras el robot ejecuta otra, el sistema deberá guardarla en una cola de acciones y enviarla al robot cuando termine la acción en curso, respetando el orden de llegada. La parada de emergencia vacía la cola (REQ-30). | ESC-06; NEC-09 | Prueba sin robot: tres órdenes dadas con el robot simulado ocupado → recibe los comandos en el orden dado, cada uno al terminar el anterior. | Esencial |
 
 ## 5.2 Requisitos de interfaces
 
@@ -458,7 +458,7 @@ Los valores numéricos son **provisionales**: el cliente pidió ponerlos «a ojo
 | REQ-26 | El sistema deberá poder ejecutarse con un robot simulado que registre los comandos recibidos, para realizar las pruebas sin el robot físico. | STK-03; hito H3 | Prueba: el conjunto de pruebas se ejecuta completo sin robot conectado. | Esencial |
 | REQ-27 | El sistema deberá poder instalarse, ejecutarse y demostrarse en un ordenador del equipo. | Cliente 26/10 (9) | Demostración en el ordenador del equipo. | Esencial |
 | REQ-28 | Los ensayos con el robot físico se harán sobre una superficie lisa y con una persona que vigile para evitar caídas. Es una medida física supervisada, no un comportamiento del software. | REF-03 (Petoi: superficies lisas); ESC-09 | Inspección del procedimiento de ensayo antes de cada sesión con el robot. | Esencial |
-| REQ-30 | **Parada de emergencia.** La interfaz deberá ofrecer un botón de parada de emergencia. Al pulsarlo, el sistema deberá poner el robot en modo reposo y no deberá enviarle ningún otro comando hasta que el usuario vuelva a pulsar el mismo botón. | Notas del equipo; ajuste del equipo (26/10): el usuario detecta el fallo y lo comunica por la interfaz | Prueba sin robot: al pulsar el botón, el robot simulado recibe el comando de reposo y no recibe ningún comando ante órdenes posteriores; al volver a pulsarlo, se atienden de nuevo. Demostración con el robot. | Esencial |
+| REQ-30 | **Parada de emergencia.** La interfaz deberá ofrecer un botón de parada de emergencia. Al pulsarlo, el sistema deberá poner el robot en modo reposo, deberá vaciar la cola de acciones y no deberá enviarle ningún otro comando hasta que el usuario vuelva a pulsar el mismo botón. | Notas del equipo; ajuste del equipo (26/10): el usuario detecta el fallo y lo comunica por la interfaz | Prueba sin robot: al pulsar el botón, el robot simulado recibe el comando de reposo la cola queda vacía y no recibe ningún comando ante órdenes posteriores; al volver a pulsarlo, se atienden de nuevo. Demostración con el robot. | Esencial |
 | REQ-31 | Tras un tiempo T sin recibir órdenes, el sistema deberá poner el robot en reposo sin avisar. T deberá ser configurable: 5 min en la demostración y 15 min en un entorno real. | ESC-03; NEC-13 | Prueba sin robot con T reducido: al cumplirse T, el robot simulado recibe el comando de reposo. Demostración con T = 5 min. | Media |
 | REQ-33 | Al recibir del robot por el puerto serie el aviso de batería baja («Low power»), el sistema deberá mostrar al usuario un aviso de que debe cargar el robot. | ESC-08; NEC-11; REF-03 (`reaction.h`) | Prueba sin robot: el robot simulado envía «Low power: 6.5V» → aparece el aviso. | Media |
 | REQ-34 | El sistema deberá mantener activado el giroscopio del robot, de forma que, si lo cogen o se cae durante una acción, el robot ejecute su reacción (`lifted` / `dropped`) y se quede quieto. | ESC-09; NEC-12; REF-03 | Demostración con el robot: levantarlo durante una acción → se detiene y queda quieto. Por confirmar en el robot (OPEN-10). | Media |
@@ -511,7 +511,7 @@ Las tablas de 5.1 a 5.4 recogen los atributos principales de cada requisito. Est
 | REQ-27 | Operación | Funciona en el ordenador del equipo | Cliente (9) | Demostración |
 | REQ-28 | Seguridad | Ensayos sobre superficie lisa y con vigilancia | REF-03, ESC-09 | Inspección del procedimiento |
 | REQ-29 | Funcional | Órdenes encadenadas: comandos en el orden dicho, cada uno al terminar el anterior | ESC-10, NEC-10 | Prueba sin robot + demostración |
-| REQ-30 | Seguridad | Parada de emergencia: botón en la interfaz, reposo hasta volver a pulsarlo | Notas del equipo | Prueba sin robot + demostración |
+| REQ-30 | Seguridad | Parada de emergencia: botón en la interfaz, vacía la cola y reposo hasta volver a pulsarlo | Notas del equipo | Prueba sin robot + demostración |
 | REQ-31 | Operación | Reposo tras T sin órdenes (5 min demo / 15 min real) | ESC-03, NEC-13 | Prueba sin robot + demostración |
 | REQ-32 | Funcional | Cola de acciones para órdenes dadas con el robot ocupado | ESC-06, NEC-09 | Prueba sin robot |
 | REQ-33 | Interfaz | Aviso de batería baja al recibir «Low power» | ESC-08, NEC-11 | Prueba sin robot |
@@ -565,7 +565,7 @@ Estado actual (borrador):
 | OPEN-02 | Valores numéricos provisionales de REQ-15, REQ-16, REQ-21 y REQ-22 | Cambian los criterios de aceptación | Medir con un prototipo y ajustar (el cliente lo permite) | Equipo / abierto |
 | OPEN-03 | Los comandos `khi`, `ktrF` y el pitido `b` no están confirmados en nuestro robot | REQ-09, REQ-11; aviso sonoro | Probarlos con el robot en la sesión 2 | Equipo / abierto |
 | OPEN-04 | Duración del giro de `kwkL`/`kwkR` y tolerancia aceptable | REQ-15, REQ-16 | Medir con el robot y fijar la duración calibrada | Equipo / abierto |
-| OPEN-05 | Qué hace el sistema si llega una orden con el robot ocupado (ESC-06) y tras un tiempo sin órdenes (ESC-03) | ESC-03, ESC-06 | Decidido (26/10): cola de acciones (REQ-32) y reposo tras 5 min en la demo / 15 min en uso real (REQ-31). Falta decidir si la parada de emergencia vacía la cola | Equipo / decidido |
+| OPEN-05 | Qué hace el sistema si llega una orden con el robot ocupado (ESC-06) y tras un tiempo sin órdenes (ESC-03) | ESC-03, ESC-06 | Decidido (26/10): cola de acciones (REQ-32) y reposo tras 5 min en la demo / 15 min en uso real (REQ-31). La parada de emergencia vacía la cola (REQ-30) | Equipo / decidido |
 | OPEN-06 | El módulo de transcripción puede enviar el audio a un servicio externo | Afecta a REQ-24 (privacidad) | Elegir el módulo y comprobar dónde se procesa el audio | Equipo / abierto |
 | OPEN-07 | Conexión con el robot (Bluetooth o USB), modelo y placa | REQ-20 | Comprobar en el robot y, si hace falta, preguntar al cliente | Equipo / abierto |
 | OPEN-08 | Secuencia concreta de «baila» | REQ-14 | Diseñar y probar la secuencia | Equipo / abierto |
