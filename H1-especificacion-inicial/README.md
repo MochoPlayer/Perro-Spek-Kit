@@ -43,6 +43,11 @@ Identificar qué necesitan los stakeholders a partir de los escenarios operacion
 | Redactar buenos requisitos | [NASA – How to Write a Good Requirement (Appendix C)](https://www.nasa.gov/reference/system-engineering-handbook-appendix/) | Criterios de claridad, precisión, consistencia, viabilidad, trazabilidad y verificabilidad. |
 | Revisar la cobertura de los requisitos | [NASA – Requirements Verification Matrix (Appendix D)](https://www.nasa.gov/reference/system-engineering-handbook-appendix/) | Cómo vincular requisitos con métodos de verificación y comprobar que ninguno queda sin evaluar. |
 
+## Documentos de trabajo
+
+- [`capacidades-bittle.md`](capacidades-bittle.md): investigación técnica del robot (punto 1).
+- [`opciones-ordenes-de-voz.md`](opciones-ordenes-de-voz.md): órdenes candidatas en tres tiers.
+
 ## Pendiente
 
 - [ ] Elegir las dos órdenes válidas
