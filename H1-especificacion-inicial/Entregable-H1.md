@@ -128,6 +128,7 @@ Registrar los hallazgos que condicionan lo que puede especificarse: capacidades 
 | STK-01 | Cliente (profesor)         | Que el robot obedezca órdenes de voz y que el sistema sea verificable.      | Encargo; cliente 26/10      |
 | STK-02 | Usuario que da las órdenes | Que el robot le entienda y responda en el menor tiempo posible.             | Cliente 26/10, puntos 2 y 4 |
 | STK-03 | Equipo (empresa)           | Que el sistema se pueda construir y probar sin el robot físico.             | Diapositiva H3              |
+| STK-04 | Personas del entorno | Están cerca del robot y pueden hablar o interactuar con él sin darle órdenes. | Ajuste del equipo (26/10) |
 
 ## 3.2 Escenarios operacionales
 
@@ -146,7 +147,6 @@ Reproducir una ficha por cada situación relevante, incluida la operación nomin
 | ESC-07 | Excepcional | Robot desconectado                          |
 | ESC-08 | Excepcional | Batería baja                                |
 | ESC-09 | Excepcional | Manipulación del robot durante una acción   |
-| ESC-10 | Excepcional | Robot roto o con fallo mecánico             |
 | ESC-11 | Alternativo | Órdenes encadenadas                         |
 
 ### ESC-01 · Orden simple reconocida
@@ -188,11 +188,11 @@ Reproducir una ficha por cada situación relevante, incluida la operación nomin
 | Objetivo operacional              | Definir qué hace el sistema si pasa un tiempo t sin órdenes. |
 | Actores y sistemas externos       | Ordenador, robot. |
 | Precondiciones / estado inicial   | Robot conectado y sin acción en curso. |
-| Disparador (trigger)              | Pasa un tiempo t sin que llegue ninguna orden. |
-| Secuencia de interacción          | *Por definir.* |
-| Resultado / estado final esperado | *Por definir:* sigue conectado permanentemente o entra en reposo. |
+| Disparador (trigger)              | Pasan 15 min sin que llegue ninguna orden. |
+| Secuencia de interacción          | 1. Pasan 15 min sin órdenes. 2. El robot se apaga sin avisar. |
+| Resultado / estado final esperado | El robot queda en reposo. |
 | Variantes y fallos relacionados   | ESC-07. |
-| Fuente y cuestiones abiertas      | Notas del equipo («conectado permanentemente o si no recibe orden en t tiempo»). *Por definir:* valor de t y comportamiento. |
+| Fuente y cuestiones abiertas      | Notas del equipo; ajuste del equipo (26/10): t = 15 min. |
 
 ### ESC-04 · Ruido alto o frase sin sentido
 
@@ -234,10 +234,10 @@ Reproducir una ficha por cada situación relevante, incluida la operación nomin
 | Actores y sistemas externos       | Usuario, ordenador, robot. |
 | Precondiciones / estado inicial   | El robot está ejecutando una acción. |
 | Disparador (trigger)              | El usuario da otra orden antes de que termine la actual. |
-| Secuencia de interacción          | *Por definir.* |
-| Resultado / estado final esperado | *Por definir:* se ignora la orden nueva o se avisa de que está ocupado. |
+| Secuencia de interacción          | 1. El robot está ejecutando una acción. 2. El usuario da otra orden. 3. El sistema no hace caso a la nueva orden. 4. El robot sigue ejecutando lo que hacía. |
+| Resultado / estado final esperado | El robot sigue con la acción que estaba haciendo; la nueva orden no se ejecuta. |
 | Variantes y fallos relacionados   | ESC-01. |
-| Fuente y cuestiones abiertas      | Notas del equipo; cliente 26/10, punto 2 (el usuario espera a que termine). *Por definir:* comportamiento. |
+| Fuente y cuestiones abiertas      | Notas del equipo; cliente 26/10, punto 2; ajuste del equipo (26/10). |
 
 ### ESC-07 · Robot desconectado
 
@@ -260,14 +260,14 @@ Reproducir una ficha por cada situación relevante, incluida la operación nomin
 |-----------------------------------|-----------|
 | Identificador                     | ESC-08 |
 | Nombre y tipo                     | Batería baja · Excepcional |
-| Objetivo operacional              | *Por definir.* |
+| Objetivo operacional              | Entrar en modo reposo cuando tenga poca batería y avisar al usuario de que debe cargarlo. |
 | Actores y sistemas externos       | Robot, ordenador, usuario. |
 | Precondiciones / estado inicial   | La batería del robot está baja. |
-| Disparador (trigger)              | *Por definir.* |
-| Secuencia de interacción          | *Por definir.* |
-| Resultado / estado final esperado | *Por definir.* |
-| Variantes y fallos relacionados   | ESC-10. |
-| Fuente y cuestiones abiertas      | Notas del equipo. *Por definir:* si el sistema puede detectar la batería baja; si no, pasa al apartado 7. |
+| Disparador (trigger)              | La batería del robot llega al 10 %. |
+| Secuencia de interacción          | 1. La batería llega al 10 %. 2. El robot emite un sonido. 3. El robot entra en modo reposo. |
+| Resultado / estado final esperado | El robot está en reposo y el usuario sabe que debe cargarlo. |
+| Variantes y fallos relacionados   | — |
+| Fuente y cuestiones abiertas      | Notas del equipo; ajuste del equipo (26/10). |
 
 ### ESC-09 · Manipulación del robot durante una acción
 
@@ -275,29 +275,14 @@ Reproducir una ficha por cada situación relevante, incluida la operación nomin
 |-----------------------------------|-----------|
 | Identificador                     | ESC-09 |
 | Nombre y tipo                     | Manipulación del robot durante una acción · Excepcional |
-| Objetivo operacional              | *Por definir.* |
+| Objetivo operacional              | No sufrir daños durante la manipulación. |
 | Actores y sistemas externos       | Persona que coge o mueve el robot, robot. |
 | Precondiciones / estado inicial   | El robot está ejecutando una acción. |
 | Disparador (trigger)              | Alguien coge, mueve o tumba el robot. |
-| Secuencia de interacción          | *Por definir.* |
-| Resultado / estado final esperado | *Por definir.* |
-| Variantes y fallos relacionados   | ESC-10. |
-| Fuente y cuestiones abiertas      | Notas del equipo. El Bittle tiene las skills `lifted` y `dropped` (ver `capacidades-bittle.md`). *Por definir:* si se usa esa detección. |
-
-### ESC-10 · Robot roto o con fallo mecánico
-
-| Campo                             | Contenido |
-|-----------------------------------|-----------|
-| Identificador                     | ESC-10 |
-| Nombre y tipo                     | Robot roto o con fallo mecánico · Excepcional |
-| Objetivo operacional              | *Por definir.* |
-| Actores y sistemas externos       | Robot, usuario. |
-| Precondiciones / estado inicial   | El robot tiene un fallo mecánico. |
-| Disparador (trigger)              | *Por definir.* |
-| Secuencia de interacción          | *Por definir.* |
-| Resultado / estado final esperado | *Por definir.* |
-| Variantes y fallos relacionados   | ESC-08, ESC-09. |
-| Fuente y cuestiones abiertas      | Notas del equipo. *Por definir:* si es detectable por el sistema; si no, pasa al apartado 7. |
+| Secuencia de interacción          | 1. Alguien coge, mueve o tumba el robot. 2. El robot ejecuta una parada de emergencia. |
+| Resultado / estado final esperado | El robot se queda quieto. |
+| Variantes y fallos relacionados   | — |
+| Fuente y cuestiones abiertas      | Notas del equipo; ajuste del equipo (26/10). El Bittle tiene las skills `lifted` y `dropped` (ver `capacidades-bittle.md`). |
 
 ### ESC-11 · Órdenes encadenadas
 
@@ -434,6 +419,7 @@ Los valores numéricos son **provisionales**: el cliente pidió ponerlos «a ojo
 | REQ-26 | El sistema deberá poder ejecutarse con un robot simulado que registre los comandos recibidos, para realizar las pruebas sin el robot físico. | STK-03; hito H3 | Prueba: el conjunto de pruebas se ejecuta completo sin robot conectado. | Esencial |
 | REQ-27 | El sistema deberá poder instalarse, ejecutarse y demostrarse en un ordenador del equipo. | Cliente 26/10 (9) | Demostración en el ordenador del equipo. | Esencial |
 | REQ-28 | Los ensayos con el robot físico se harán sobre una superficie lisa y con una persona que vigile para evitar caídas. Es una medida física supervisada, no un comportamiento del software. | REF-03 (Petoi: superficies lisas); ESC-09 | Inspección del procedimiento de ensayo antes de cada sesión con el robot. | Esencial |
+| REQ-30 | Ante un fallo mecánico del robot, el sistema no deberá moverlo, para evitar más daños. | Notas del equipo (antes escenario de robot roto); ajuste del equipo (26/10) | *Por definir* (cómo se detecta el fallo). | *Por definir* |
 
 ## 5.5 Ficha de requisito (duplicar por cada requisito)
 
@@ -483,6 +469,7 @@ Las tablas de 5.1 a 5.4 recogen los atributos principales de cada requisito. Est
 | REQ-27 | Operación | Funciona en el ordenador del equipo | Cliente (9) | Demostración |
 | REQ-28 | Seguridad | Ensayos sobre superficie lisa y con vigilancia | REF-03, ESC-09 | Inspección del procedimiento |
 | REQ-29 | Funcional | Órdenes encadenadas: comandos en el orden dicho, cada uno al terminar el anterior | ESC-11, NEC-10 | Prueba sin robot + demostración |
+| REQ-30 | Seguridad | Fallo mecánico: el robot no se mueve | Notas del equipo | Por definir |
 
 # 6. Trazabilidad y estrategia inicial de verificación
 
@@ -498,7 +485,8 @@ Las tablas de 5.1 a 5.4 recogen los atributos principales de cada requisito. Est
 | ESC-06 | NEC-09 | — (OPEN-05) | Por definir. |
 | ESC-07 | NEC-06 | REQ-19, REQ-25 | Sin conexión: ningún comando y aviso mostrado. |
 | ESC-11 | NEC-10 | REQ-29 | Frases con varias órdenes: los comandos llegan al robot simulado en el orden dicho. |
-| ESC-08, ESC-09, ESC-10 | — | REQ-28 (solo parcial) | Escenarios aún por definir (apartado 3). |
+| Fallo mecánico (sin escenario) | — | REQ-30 | Por definir. |
+| ESC-08, ESC-09 | — | REQ-28 (solo parcial) | Escenarios aún por definir (apartado 3). |
 | H3 (pruebas sin robot) | NEC-08 | REQ-26 | El conjunto de pruebas se ejecuta completo sin robot conectado. |
 | Transversales | NEC-01 | REQ-17, REQ-18, REQ-20, REQ-27 | Ver verificación en 5.1 a 5.4. |
 | Cliente 26/10 (7) | — | REQ-24 | Inspección: sin ficheros de audio. |
@@ -508,7 +496,7 @@ Las tablas de 5.1 a 5.4 recogen los atributos principales de cada requisito. Est
 Estado actual (borrador):
 
 - Necesidades sin requisito: NEC-09 (depende de ESC-06, OPEN-05).
-- Escenarios sin requisito: ESC-03 y ESC-06 (comportamiento por definir, OPEN-05); ESC-08, ESC-09 y ESC-10 (escenarios por definir).
+- Escenarios sin requisito: ESC-03 y ESC-06 (comportamiento por definir, OPEN-05); ESC-08 y ESC-09 (escenarios por definir).
 - Requisitos sin necesidad asociada: REQ-24 (privacidad), que viene de lo que dijo el cliente (punto 7), y REQ-28, que viene de la documentación de Petoi. Falta decidir si se crea una necesidad para cada uno.
 - Todos los requisitos tienen origen y método de verificación previsto.
 
