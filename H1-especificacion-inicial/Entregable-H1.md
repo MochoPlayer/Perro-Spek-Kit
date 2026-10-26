@@ -64,58 +64,77 @@ Este documento recoge el análisis del problema del reto VOICE-BITTLE: contexto,
 
 ## 2.1 Problema, objetivos y alcance
 
-> **Borrador para revisión del equipo.** *Por referenciar:* OpsCon v0.1 (REF-02).
+### Problema
+El robot cuadrúpedo Petoi Bittle opera de forma predeterminada mediante comandos manuales. El reto **VOICE-BITTLE** surge de la necesidad de proporcionar una interfaz natural de control por voz que permita a un usuario interactuar con el robot en un entorno real , logrando que el cuadrúpedo ejecute órdenes sin manipulación física.
 
-**Problema:** el robot Petoi Bittle no se puede controlar por voz tal como lo tenemos (Bittle normal, sin módulo de voz).
+### Objetivos
+1. **Captura y reconocimiento de voz:** Recibir la señal de voz del usuario a través del micrófono del puesto de control (el dispostivo con micrófono) y transcribirla a texto con la mínima latencia perceptible.
+2. **Activación discriminada:** Filtrar conversaciones ajenas mediante una palabra clave de activación («nombre del perro», ej. *Bittle*), procesando únicamente las locuciones dirigidas al robot.
+3. **Mapeo y despacho de comandos:** Interpretar la intención del usuario y traducirla al repertorio de comandos válidos del protocolo OpenCat del Petoi Bittle, asegurando el cumplimiento mínimo de dos órdenes válidas canónicas.
+4. **Respuesta ante entradas no reconocidas:** Identificar frases fuera de catálogo o ininteligibles por ruido ambiental, garantizando que el robot permanezca en reposo seguro e informando al usuario mediante retroalimentación visual en el ordenador.
+5. **Verificabilidad desacoplada:** Garantizar que la arquitectura del sistema permita la simulación y verificación automatizada de software sin requerir la presencia permanente del hardware físico.
 
-**Objetivo:** que el Bittle obedezca órdenes de voz de su repertorio.
+### Alcance (Scope)
+- **Dentro del alcance:**
+  - Adquisición de audio y procesamiento de voz en el ordenador host.
+  - Detección de palabra de activación («nombre del perro») y mapeo unívoco de órdenes a tokens del protocolo serie Petoi (`ksit`, `kup`, `krest`).
+  - Implementación y verificación de al menos **dos órdenes válidas nominales** y el **tratamiento de la entrada no reconocida**.
+  - Canal de comunicación bidireccional host–robot mediante Bluetooth.
+  - Emisión de retroalimentación de estado y avisos de error desde el propio ordenador host.
 
-**Criterio mínimo de aceptación:** dos órdenes válidas y el tratamiento de una entrada no reconocida (diapositiva del reto, H1 y H4).
+- **Fuera del alcance:**
+  - Procesamiento del habla en la placa del robot.
+  - Reconocimiento concurrente o interrupción en tiempo real de movimientos ya iniciados.
+  - Movimientos gimnásticos de alto riesgo dinámico.
+  - Navegación autónoma con evasión reactiva de obstáculos o seguimiento de personas.
 
-**Dentro del alcance:**
-- El ordenador con la interfaz de usuario.
-- El procesamiento de la voz.
-- El envío de comandos al robot.
-- La ejecución de skills que el robot ya tiene.
-- Órdenes encadenadas en una misma frase, ejecutadas en orden (ajuste del cliente, 26/10).
-
-**Fuera del alcance:**
-- Interrupciones (cancelar una acción en curso).
-- Navegación autónoma o seguir a personas.
-- Requisitos de dominio (cliente 26/10, punto 7).
+---
 
 ## 2.2 Frontera del sistema e interfaces externas
 
+El **Sistema de Interés (SoI - System of Interest)** está constituido por el software del sistema VOICE-BITTLE alojado en el ordenador host.
+
+### Tabla de interfaces externas
+
 | Elemento externo | Interacción / interfaz | Dentro o fuera del SoI | Fuente / incertidumbre |
 |------------------|------------------------|------------------------|------------------------|
-| Usuario | Da órdenes por voz y recibe avisos del sistema. | Fuera | Cliente 26/10, puntos 2, 3 y 8 |
-| Entorno (ruido, otras personas) | Interfiere en la captación de la voz. | Fuera | Notas del equipo |
-| Ordenador con la interfaz | Capta la voz, la procesa y avisa al usuario. | Dentro | Cliente 26/10, puntos 8 y 9 |
-| Enlace Bluetooth o USB | Lleva los comandos del ordenador al robot. | Interfaz | `capacidades-bittle.md` |
-| Robot Bittle | Recibe comandos y ejecuta skills. | *Por decidir* | — |
+| **Usuario (Operador)** | Emite las locuciones de voz humana y observa visual/acústicamente el comportamiento del sistema. | Fuera | Cliente; requisitos de interacción y ergonomía. |
+| **Micrófono del Host** | Captura la presión acústica y suministra el flujo de audio digitalizado al SoI mediante la API de audio del SO. | Fuera | Hardware del portátil; nivel de ruido ambiental. |
+| **Servicio / Motor STT** | Transcripción de audio a texto (modelo local ligero o biblioteca STT). | Dentro (componente lógico integrado) | Viabilidad evaluada en 2.4; requiere latencia < 1.5 s. |
+| **Interfaz de Pantalla / Altavoz Host** | Presenta mensajes de estado y emite señales audibles cuando la orden es inválida («no entendido»). | Fuera (recurso hardware controlado por el SoI) | Respuesta cliente, punto 8. |
+| **Enlace de Comunicación (USB / Bluetooth)** | Puerto COM serie virtual  para transmisión de tramas de control. | Frontera de comunicación del SoI | Petoi Serial Protocol; emparejamiento Bluetooth en PC. |
+| **Robot Petoi Bittle (NyBoard)** | Microcontrolador embebido que ejecuta el firmware OpenCat, decodifica los tokens recibidos y acciona los servos. | Fuera | Documentación Petoi; hardware físico del kit. |
+| **Superficie de Apoyo** | Mesa o suelo liso donde el cuadrúpedo apoya sus patas y tracciona. | Fuera | Restricción física documentada en `capacidades-bittle.md`. |
+
+---
 
 ## 2.3 Condiciones de operación y restricciones conocidas
 
-| ID     | Condición, capacidad o restricción | Procedencia | Estado de conocimiento |
-|--------|------------------------------------|-------------|------------------------|
-| CTX-01 | El usuario da una orden o varias encadenadas en una misma frase; cada orden empieza cuando termina la anterior. | Cliente 26/10, punto 2 (ajustado por el cliente) | Documentado |
-| CTX-02 | Para dar una orden hay que llamar al robot por su nombre. | Cliente 26/10, punto 3 | Documentado |
-| CTX-03 | El robot es un Bittle normal (NyBoard), sin módulo de voz. | Equipo | Comprobado |
-| CTX-04 | La conexión con el robot es por Bluetooth o USB. Falta confirmar que tenemos el adaptador Bluetooth. | `capacidades-bittle.md` | Pendiente |
-| CTX-05 | El robot se mueve bien solo sobre superficie lisa. | `capacidades-bittle.md` | Documentado |
-| CTX-06 | El robot no avisa cuando termina una acción. | `capacidades-bittle.md` | Pendiente de comprobar |
-| CTX-07 | La prueba se hace en un ordenador propio, con interfaz web o aplicación. | Cliente 26/10, punto 9 | Documentado |
-| CTX-08 | No hay requisitos de dominio en estas entregas. | Cliente 26/10, punto 7 | Documentado |
-| CTX-09 | Condiciones de ruido durante la demostración. | — | Pendiente |
+| ID | Condición, capacidad o restricción | Procedencia | Estado de conocimiento |
+|---|---|---|---|
+| **CTX-01** | **Arquitectura de cómputo desacoplada:** El procesamiento de voz (STT) y la lógica de decisión residen en el PC portátil del equipo; el Bittle actúa exclusivamente como receptor cinemático. | `capacidades-bittle.md`; Hardware disponible (NyBoard sin módulo de voz) | Comprobado y acordado con el cliente. |
+| **CTX-02** | **Interacción monousuario y por turnos (Turn-taking):** El usuario da una sola orden por ciclo y espera a que el robot complete el movimiento antes de emitir la siguiente. No se contemplan órdenes concurrentes ni interrupciones dinámicas. | Respuestas cliente , punto 2 | Confirmado por el cliente. |
+| **CTX-03** | **Palabra de activación previa obligatoria (Wake-word):** Toda orden debe ir precedida por el nombre del perro (ej. *Bittle*). Cualquier locución o ruido sin dicha palabra clave se ignora para evitar reacciones espurias. | Respuestas cliente , punto 3 | Confirmado por el cliente. |
+| **CTX-04** | **Latencia acotada (Mínimo tiempo posible):** El retardo entre la finalización de la locución y el envío del comando al robot debe ser mínimo (objetivo orientativo < 1.5 s; el cliente descarta por inaceptables retardos de 10 s). | Transcripción reunión, punto 4 | Confirmado por el cliente; pendiente de ensayo de rendimiento. |
+| **CTX-05** | **Ausencia de telemetría de fin de acción (Open-loop):** El protocolo OpenCat estándar no emite acuse de recibo de finalización de un skill; el software debe calcular o asociar un retardo preventivo (`delay`) antes de procesar un nuevo movimiento. | `capacidades-bittle.md`, sección 8 | Documentado en API; pendiente de confirmación física de respuesta serie. |
+| **CTX-06** | **Superficie de deslizamiento y estabilidad:** El robot debe operar sobre suelo o mesa lisa y plana; alfombras o irregularidades provocan pérdida de adherencia y desequilibrio dinámico. | `capacidades-bittle.md`, sección 8 | Documentado en fabricante. |
+| **CTX-07** | **Canal de enlace serie:** Comunicación serie asíncrona mediante cable micro-USB o Bluetooth clásico SPP, a una tasa fija (115200 baudios en OpenCat estándar). | `capacidades-bittle.md`; documentación de Moodle | Documentado; requiere validar emparejamiento Bluetooth en aula. |
+| **CTX-08** | **Testabilidad reproducible sin hardware:** El sistema debe diseñarse de forma modular con soporte para pruebas automatizadas sin el robot físico conectado (requisito obligatorio para H3). | Guía del reto y diapositivas H3 | Requisito metodológico de la asignatura. |
+| **CTX-09** | **Tratamiento pasivo y feedback ante error:** Ante una frase ininteligible, ruido o comando inexistente, el robot debe permanecer inmóvil y el ordenador debe notificar al usuario («no se ha entendido»). | Respuestas cliente, punto 8 | Confirmado por el cliente. |
+
+---
 
 ## 2.4 Investigación técnica de viabilidad
 
-Registrar los hallazgos que condicionan lo que puede especificarse: capacidades documentadas del cuadrúpedo, alternativas de voz, posibilidades de conexión e integración, limitaciones y riesgos. No convertir decisiones de implementación todavía abiertas en requisitos arbitrarios.
+| Cuestión técnica | Alternativas analizadas o hallazgo principal | Evidencia / referencia técnica | Impacto en escenarios o requisitos |
+|---|---|---|---|
+| **Catálogo de movimientos del Bittle** | El robot soporta más de 45 habilidades predefinidas mediante el token serie `k` (ej. `ksit`, `kup`, `kbalance`, `krest`, `kwkF`, `kwkL`, `kwkR`, `ktrF`). | [`capacidades-bittle.md`](capacidades-bittle.md), sección 2; `OpenCat.h` de PetoiCamp | Permite seleccionar como mínimo 2 órdenes de alta estabilidad (Tier 1: `ksit` y `kup`) para la entrega H1, reduciendo riesgos de vuelco. |
+| **Motor de Reconocimiento de Voz (STT)** | Tres alternativas: 1) Módulo hardware Petoi (no disponible en NyBoard); 2) Servicios Cloud (latencia dependiente de la red de la UPM y credenciales); 3) STT local en PC (bibliotecas Python ligeras como Vosk o Faster-Whisper base/tiny). | [`capacidades-bittle.md`](capacidades-bittle.md), sección 9; análisis de latencia | Se opta por STT ejecutado en el ordenador host con motor local offline para garantizar latencia mínima (< 1.5 s) e independencia de conexión a internet durante la demo. |
+| **Protocolo de comunicación serie** | Protocolo ASCII / binario mediante comandos serie breves (carácter token + argumentos + salto de línea). Soporte nativo en Python vía `pyserial` y funciones auxiliares de Petoi (`sendSkillStr`). | [Petoi Serial Protocol Doc](https://docs.petoi.com/apis/serial-protocol); [`capacidades-bittle.md`](capacidades-bittle.md), sección 7 | El SoI solo necesita transmitir strings simples (ej. `ksit\n`), simplificando el driver serie y facilitando su sustitución por un mock en las pruebas de H3. |
+| **Detección de activación (Wake-Word)** | Detección mediante emparejamiento fonético/léxico en el texto transcrito (ej. comprobar presencia de `"bittle"` o `"toby"` al inicio de la frase normalizada). | Respuestas cliente 26/10, punto 3; [`opciones-ordenes-de-voz.md`](opciones-ordenes-de-voz.md) | Evita que conversaciones aleatorias activen al robot. Obliga a rechazar cualquier orden emitida sin la palabra clave de activación previa. |
+| **Tolerancia a ruido y acentos** | El vocabulario de control se reduce a comandos específicos del catálogo mediante normalización de texto (minúsculas, sin tildes) y tabla de sinónimos (ej. "arriba" = "levántate" = `kup`). | [`opciones-ordenes-de-voz.md`](opciones-ordenes-de-voz.md), sección Tier 1 | Aumenta la robustez en la sala de demostración ruidosa. Si la similitud fonética es insuficiente, se deriva directamente a escenario excepcional ESC-04. |
+| **Gestión de temporizaciones y ocupación** | El robot no avisa por el puerto serie al concluir una acción motriz. El host debe mantener un modelo de temporización estimado (`delay`) por cada skill (ej. 2 s para `ksit`) antes de permitir el despacho de una nueva orden. | [`capacidades-bittle.md`](capacidades-bittle.md), sección 8; cliente 26/10, punto 2 | Impide saturar el buffer serie del microcontrolador de la placa NyBoard y evita colisiones mecánicas por órdenes simultáneas. |
 
-| Cuestión                    | Alternativas o hallazgo        | Evidencia / referencia  | Impacto en escenarios o requisitos |
-|-----------------------------|--------------------------------|-------------------------|------------------------------------|
-| [Movimientos disponibles] | [Resultado de consulta]      | [URL, sección, fecha] | [Implicación]                    |
-| [Reconocimiento de voz]   | [Alternativas identificadas] | [Fuentes]             | [Implicación]                    |
 
 # 3. Stakeholders y escenarios operacionales
 
