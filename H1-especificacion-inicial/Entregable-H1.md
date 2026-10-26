@@ -7,30 +7,24 @@ title: "VOICE-BITTLE | H1 — Análisis del problema y definición de requisitos
 | Control documental         | Valor                                                     |
 |----------------------------|-----------------------------------------------------------|
 | Código documental          | [Código de la empresa / documento]                      |
-| Proyecto / sistema         | VOICE-BITTLE / [Nombre del sistema de interés]          |
+| Proyecto / sistema         | VOICE-BITTLE / Sistema de control por voz del Bittle («Atenio») |
 | Empresa / autores          | [Nombres y responsabilidades]                           |
-| Versión / estado           | [v0.1 / borrador H1]                                    |
-| Fecha                      | [AAAA-MM-DD]                                            |
-| Repositorio / revisión Git | [URL o ruta del repositorio propio; hash del commit H1] |
-| Aprobación o revisión      | [Responsable y resultado de la revisión]                |
+| Versión / estado           | v1.0 / entrega H1 |
+| Fecha                      | 2026-10-26 |
+| Repositorio / revisión Git | https://github.com/MochoPlayer/Perro-Spek-Kit-IngenIA (rama `main`; commit de entrega indicado en Moodle) |
+| Aprobación o revisión      | Revisión interna del equipo, 26/10/2026 |
 
 # Historial de revisiones
 
 | Versión  | Fecha     | Cambios                | Autor      |
 |----------|-----------|------------------------|------------|
-| [v0.1] | [Fecha] | [Resumen del cambio] | [Nombre] |
-
-# Cómo utilizar esta plantilla
-
-Completar los apartados aplicables al sistema estudiado, duplicando filas y fichas cuando sea necesario. No hay números máximos ni mínimos prefijados de escenarios, necesidades o requisitos: la extensión debe justificarse por la cobertura del problema. Un campo desconocido se registra como asunto abierto, indicando su impacto y cómo se resolverá; no se sustituye por una afirmación inventada.
-
-La trazabilidad propuesta relaciona las fuentes y el OpsCon con los escenarios, las necesidades y los requisitos. Los métodos de verificación se identifican inicialmente, pero en H1 no se exige ejecutar pruebas ni implementar software.
+| v0.1 | 2026-10-26 | Borrador inicial: apartados 1 a 7 | Equipo |
+| v1.0 | 2026-10-26 | Revisión del equipo, ajustes del cliente y versión de entrega H1 | Equipo |
 
 # 1. Introducción
 
 ## 1.1 Propósito del documento
 
-> **Borrador para revisión del equipo.**
 
 Este documento recoge el análisis del problema del reto VOICE-BITTLE: contexto, stakeholders, escenarios, necesidades y requisitos del sistema de control por voz del Bittle, con su trazabilidad y el método de verificación previsto. Va dirigido al cliente y al equipo. Servirá de entrada a Spec Kit en el H2 (`spec.md`, `plan.md`, `tasks.md`) y para analizar la solicitud de cambio CR-01.
 
@@ -139,7 +133,6 @@ El **Sistema de Interés (SoI - System of Interest)** está constituido por el s
 
 # 3. Stakeholders y escenarios operacionales
 
-> **Borrador para revisión del equipo.** Sale de las notas del equipo y de las respuestas del cliente del 26/10 (`referencias/notas/respuestas-cliente-2026-10-26.md`). Lo marcado como *Por definir* está pendiente de decidir.
 
 ## 3.1 Identificación de stakeholders
 
@@ -319,28 +312,12 @@ Reproducir una ficha por cada situación relevante, incluida la operación nomin
 | Variantes y fallos relacionados   | ESC-01, ESC-04, ESC-05. |
 | Fuente y cuestiones abiertas      | Ajuste del cliente (26/10). *Por definir:* número máximo de órdenes por frase; palabras de enlace aceptadas («y», «luego»…); qué pasa si una de las órdenes no se reconoce; cómo se sabe que ha terminado una acción (CTX-05). |
 
-## Ficha reutilizable de escenario
-
-| Campo                             | Contenido                                      |
-|-----------------------------------|------------------------------------------------|
-| Identificador                     | ESC-[nn]                                       |
-| Nombre y tipo                     | [Nominal / alternativo / excepcional]        |
-| Objetivo operacional              | [Qué pretende lograr el actor]               |
-| Actores y sistemas externos       | [Quién o qué participa]                      |
-| Precondiciones / estado inicial   | [Situación que permite iniciar el escenario] |
-| Disparador (trigger)              | [Evento que lo inicia]                       |
-| Secuencia de interacción          | [Pasos observables actor–sistema–entorno]    |
-| Resultado / estado final esperado | [Condiciones observables de cierre]          |
-| Variantes y fallos relacionados   | [Otros escenarios referenciados]             |
-| Fuente y cuestiones abiertas      | [OpsCon / evidencia / incertidumbre]         |
-
 # 4. Necesidades de los stakeholders
 
 Recoger necesidades justificadas por el uso y por las condiciones del problema. Evitar confundir una necesidad con una tecnología concreta o con una instrucción de implementación.
 
 ## 4.1 Registro de necesidades
 
-> **Borrador para revisión del equipo.**
 
 | ID     | Stakeholder(s) | Necesidad expresada | Origen / escenario | Justificación / prioridad |
 |--------|----------------|---------------------|--------------------|---------------------------|
@@ -360,7 +337,6 @@ Recoger necesidades justificadas por el uso y por las condiciones del problema. 
 
 ## 4.2 Revisión de cobertura de necesidades
 
-> **Borrador para revisión del equipo.**
 
 **Cubierto:**
 - Todos los escenarios (ESC-01 a ESC-10) tienen al menos una necesidad asociada.
@@ -463,20 +439,9 @@ Los valores numéricos son **provisionales**: el cliente pidió ponerlos «a ojo
 | REQ-33 | Al recibir del robot por el puerto serie el aviso de batería baja («Low power»), el sistema deberá mostrar al usuario un aviso de que debe cargar el robot. | ESC-08; NEC-11; REF-03 (`reaction.h`) | Prueba sin robot: el robot simulado envía «Low power: 6.5V» → aparece el aviso. | Media |
 | REQ-34 | El sistema deberá mantener activado el giroscopio del robot, de forma que, si lo cogen o se cae durante una acción, el robot ejecute su reacción (`lifted` / `dropped`) y se quede quieto. | ESC-09; NEC-12; REF-03 | Demostración con el robot: levantarlo durante una acción → se detiene y queda quieto. Por confirmar en el robot (OPEN-10). | Media |
 
-## 5.5 Ficha de requisito (duplicar por cada requisito)
+## 5.5 Ficha de requisito
 
-Las tablas de 5.1 a 5.4 recogen los atributos principales de cada requisito. Esta ficha completa se usa si un requisito necesita más detalle (motivación, supuestos).
-
-| Atributo                                    | Contenido                                                                  |
-|---------------------------------------------|----------------------------------------------------------------------------|
-| Identificador único                         | REQ-[nn]                                                                 |
-| Clase                                       | [Funcional / interfaz / prestación / seguridad / otra]                   |
-| Enunciado                                   | [El sistema deberá … bajo [condición] … con resultado comprobable]     |
-| Motivación / rationale                      | [Por qué existe; riesgo o necesidad atendida]                            |
-| Origen y trazabilidad                       | [NEC-… / ESC-… / REF-…]                                                  |
-| Criterio o método de verificación previsto  | [Prueba / análisis / inspección / demostración; qué habría que observar] |
-| Supuestos, restricciones y asuntos abiertos | [Referencias o “Ninguno identificado”]                                   |
-| Estado / revisión                           | [Propuesto / revisado / pendiente de aclaración]                         |
+Los atributos de la ficha (identificador, clase, enunciado, origen, verificación prevista y estado) se recogen para cada requisito en las tablas de 5.1 a 5.4 y en el registro de 5.6.
 
 ## 5.6 Registro consolidado de requisitos
 
@@ -578,12 +543,12 @@ Este apartado registra el resultado de la revisión de la empresa; no implica ne
 
 | Comprobación                                          | Resultado / evidencia      |
 |-------------------------------------------------------|----------------------------|
-| Cobertura de escenarios nominales y excepcionales     | [Análisis / referencias] |
-| Relación entre necesidades, stakeholders y escenarios | [Análisis]               |
-| Claridad, coherencia y verificabilidad de requisitos  | [Análisis]               |
-| Trazabilidad y método de verificación previsto        | [Análisis]               |
-| Incertidumbres identificadas y documentadas           | [Registro OPEN-…]        |
-| Versión recuperable del repositorio                   | [Hash de commit]         |
+| Cobertura de escenarios nominales y excepcionales     | 10 escenarios: 1 nominal (ESC-01), 3 alternativos (ESC-02, ESC-03, ESC-10) y 6 excepcionales (ESC-04 a ESC-09). Incluyen la entrada no reconocida (ESC-04, ESC-05). |
+| Relación entre necesidades, stakeholders y escenarios | Los 4 stakeholders tienen al menos una necesidad, y los 10 escenarios están enlazados con alguna de las 13 necesidades (apartados 4.1 y 4.2). |
+| Claridad, coherencia y verificabilidad de requisitos  | 34 requisitos con identificador, origen y verificación prevista. Los valores numéricos son provisionales y se ajustarán con el prototipo (OPEN-02). |
+| Trazabilidad y método de verificación previsto        | Matriz escenario → necesidad → requisito completa (6.1); todos los escenarios y necesidades tienen requisito (6.2); niveles de verificación en 6.3. |
+| Incertidumbres identificadas y documentadas           | OPEN-01 a OPEN-10 (apartado 7). |
+| Versión recuperable del repositorio                   | Rama `main` de https://github.com/MochoPlayer/Perro-Spek-Kit-IngenIA; commit de entrega indicado en Moodle. |
 
 # 9. Referencias metodológicas y grado de adaptación
 
